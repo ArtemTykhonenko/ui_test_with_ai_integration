@@ -62,25 +62,28 @@
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- Allure для звіту -->
+        <!-- Allure для Cucumber -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId> <!-- Замените на актуальную версию -->
+            <version>${allure.version}</version>
+        </dependency>
+
+        <!-- Allure для TestNG -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-cucumber5-jvm</artifactId>
-            <version>${allure.version}</version>
-        </dependency>
 
         <!-- JSON handling for AI response processing -->
         <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20240303</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
@@ -97,7 +100,7 @@
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
                 <configuration>
-                    <reportVersion>2.19.1</reportVersion>
+                    <reportVersion>2.29.0</reportVersion> <!-- Убедитесь, что версия соответствует -->
                 </configuration>
             </plugin>
         </plugins>
