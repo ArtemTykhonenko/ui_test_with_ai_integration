@@ -4,7 +4,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>ui_test_with_ai_integration</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-${buildNumber}</version>
 
     <properties>
         <java.version>17</java.version>
@@ -14,6 +14,7 @@
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
         <cucumber.version>7.15.0</cucumber.version>
         <allure.version>2.29.0</allure.version>
+        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
     </properties>
 
     <dependencies>
@@ -99,6 +100,26 @@
                 <configuration>
                     <reportVersion>2.19.1</reportVersion>
                 </configuration>
+            </plugin>
+
+            <!-- Plugin для динамического добавления номера сборки -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>add-build-number</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>timestamp-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>buildNumber</name>
+                            <pattern>${maven.build.timestamp.format}</pattern>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
