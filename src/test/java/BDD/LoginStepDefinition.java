@@ -1,20 +1,27 @@
 package BDD;
 
+import automation.actions.Actions;
 import automation.base.BaseTest;
-import automation.pages.Pages;
+import automation.utils.Constants;
 import com.codeborne.selenide.Selenide;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 
+public class LoginStepDefinition extends BaseTest {
 
-public class LoginStepDefinition {
-    private Pages pages;
+    private Actions actions;
 
     public LoginStepDefinition() {
-        pages = new Pages(new BaseTest());
+        actions = new Actions();
     }
 
-    @Given("Open 'Swag Labs' login page")
+    @Given("Open 'Web Admin' login page")
     public void iGoToLoginPage() {
-        Selenide.open("https://www.saucedemo.com/");
+        Selenide.open(Constants.SWAG_LABS_LOGIN_PAGE);
+    }
+
+    @When("Login to 'Web Admin' as admin user")
+    public void loginToWebAdminAsAdminUser() {
+        actions.loginActions().loginToWebAdmin(Constants.STANDARD_USER, Constants.PASSWORD);
     }
 }

@@ -1,31 +1,25 @@
 package automation.pages;
 
-import automation.base.BaseTest;
-import com.codeborne.selenide.SelenideElement;
+import automation.utils.PageTools;
+import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
+public class LoginPage extends PageTools {
 
-public class LoginPage {
-    private BaseTest baseTest;
+    // Локаторы
+    private static final By usernameField = By.id("user-name");
+    private static final By passwordField = By.id("password");
+    private static final By loginButton = By.id("login-button");
 
-    // Элементы страницы
-    private SelenideElement usernameField = $("#username");
-    private SelenideElement passwordField = $("#password");
-    private SelenideElement loginButton = $("#loginButton");
 
-    public LoginPage(BaseTest baseTest) {
-        this.baseTest = baseTest;
+    public void typeUsername(String username) {
+        typeText(usernameField, username);
     }
 
-    public void enterUsername(String username) {
-        usernameField.setValue(username);
+    public void typePassword(String password) {
+        typeText(passwordField, password);
     }
 
-    public void enterPassword(String password) {
-        passwordField.setValue(password);
-    }
-
-    public void clickLogin() {
-        loginButton.click();
+    public void clickSubmitButton() {
+        clickElement(loginButton);
     }
 }

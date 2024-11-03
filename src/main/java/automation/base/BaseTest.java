@@ -1,22 +1,21 @@
 package automation.base;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
-    protected WebDriver driver;
-
-    @BeforeClass
+    @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        String browser = System.getProperty("browser", "chrome");
-        driver = DriverManager.getDriver(browser);
+        // Конфигурация браузера
+        Configuration.browserSize = "1920x1080"; // Установка размера браузера
+        Selenide.open(""); // Здесь можно оставить пустым или указать URL
     }
 
-    @AfterClass
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        DriverManager.quitDriver();
-
+        Selenide.closeWebDriver(); // Закрытие драйвера
     }
 }

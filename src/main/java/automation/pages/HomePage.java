@@ -1,22 +1,15 @@
 package automation.pages;
 
-import automation.base.BaseTest;
-import com.codeborne.selenide.SelenideElement;
+import automation.utils.PageTools;
+import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
+public class HomePage extends PageTools {
+    // Локаторы
+    private static final By productTitle = By.xpath("//span[@class='title' and contains(text(), 'Products')]");
 
-public class HomePage {
-    private BaseTest baseTest;
 
-    // Элементы страницы
-    private SelenideElement welcomeMessage = $("#welcomeMessage");
 
-    public HomePage(BaseTest baseTest) {
-        this.baseTest = baseTest;
-    }
+    public void isMainPageDisplayed() {
 
-    // Метод для проверки наличия приветственного сообщения
-    public String getWelcomeMessage() {
-        return welcomeMessage.getText();
     }
 }
