@@ -1,29 +1,31 @@
-# UI Test with AI integration
+# Automation of testing using artificial intelligence
+Here's an improved version of the description:
 
-This project is a test application using Cucumber for BDD (Behavior-Driven Development) and Selenide for browser interaction. The project also includes integration with AI to handle errors and improve the testing process.
+---
+
+In this project, we address the issue of manually updating locators (such as XPath, CSS, etc.) by integrating AI through an API interface. For this proof of concept, ChatGPT is utilized to simplify the process and test the hypothesis.
+
+For future or production projects, more secure AI solutions or internal tools are recommended to ensure better data protection and reliability.
+
+--- 
+
+This version clarifies the intent and focus of the project while emphasizing recommendations for production environments. Let me know if further adjustments are needed!
 
 ## Content
 
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Start tests](#start-tests)
-- [Configuration](#configuration)
-- [Technologies](#technologies)
-
-## Requirements
-
-- Java 17
-- Maven
-- Installed WebDriver (e.g. ChromeDriver)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [Configuration](#Configuration)
+- [Contact information](#Contact information)
 
 ## Installation
+1. Make sure Git is installed on your PC.
 
-1. Clone the repository:
+2. To download the project from GitHub, use the command:
 
- ```bash
- git clone <repository_URL>
- cd ui_test_with_ai_integration
- ```
+```bash
+git clone https://github.com/ArtemTykhonenko/ui_test_with_ai_integration.git
+```
 
 2. Make sure you have Maven installed and JAVA_HOME configured.
 
@@ -33,23 +35,25 @@ This project is a test application using Cucumber for BDD (Behavior-Driven Devel
  mvn clean install
  ```
 
-## Running tests
+## Usage
 
 To run the tests, use the following command:
 
 ```bash
 mvn clean test -Dtest=TestRunner "-Dcucumber.filter.tags=@C01"
-Where @C01 is the tag used to filter tests.
+```
+Where "@C01" is the tag used to filter tests. You can add any tags to the "feature" file for filtering.
 
 ## Configuration
-## Maven plugins
+
+#### Maven plugins
 The project uses the following Maven plugins:
 
 - Maven Surefire Plugin: For running tests.
 
 - Allure Maven Plugin: For generating test reports.
 
-## Dependencies
+#### Dependencies
 The project uses the following dependencies:
 
 - Selenide: To automate the testing of web applications.
@@ -60,7 +64,7 @@ The project uses the following dependencies:
 - Allure: For test reports.
 - JSON: To process AI responses.
 
-## Technologies
+#### Technologies
 - Java 17
 - Maven
 - Cucumber
@@ -68,3 +72,7 @@ The project uses the following dependencies:
 - TestNG
 - Allure
 - Logback
+
+## Contact-information
+- **EMAIL**: [artem.tykhonenko.v@gmail.com](mailto:artem.tykhonenko.v@gmail.com)
+- **Telegram**: [@Artem_Tykhonenko](https://t.me/Artem_Tykhonenko)
