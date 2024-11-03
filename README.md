@@ -13,7 +13,7 @@ For future or production projects, more secure AI solutions or internal tools ar
 - [Installation](#Installation)
 - [Usage](#Usage)
 - [Configuration](#Configuration)
-- [Contact information](#Contact information)
+- [Contact information](#Contact-information)
 
 ## Installation
 1. Make sure Git is installed on your PC.
