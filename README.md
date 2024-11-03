@@ -1,5 +1,4 @@
 # Automation of testing using artificial intelligence
-Here's an improved version of the description:
 
 ---
 
@@ -8,8 +7,6 @@ In this project, we address the issue of manually updating locators (such as XPa
 For future or production projects, more secure AI solutions or internal tools are recommended to ensure better data protection and reliability.
 
 --- 
-
-This version clarifies the intent and focus of the project while emphasizing recommendations for production environments. Let me know if further adjustments are needed!
 
 ## Content
 
