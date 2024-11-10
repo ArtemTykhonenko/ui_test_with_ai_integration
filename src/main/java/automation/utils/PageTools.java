@@ -24,41 +24,58 @@ public class PageTools extends DefaultLogger {
     /**
      * Получает элемент по заданному локатору с помощью LocatorParser.
      */
-    protected SelenideElement getElement(By by) {
-        logInfo("Getting element by locator: " + by);
-        return $(LocatorParser.parseLocator(by));
+    protected SelenideElement getElement(By by, Object... args) {
+        logInfo("Getting element by locator: " + by, args);
+        return $(LocatorParser.parseLocator(by, args));
     }
 
     /**
      * Нажимает на элемент.
      */
-    protected void clickElement(By by) {
+    protected void clickElement(By by, Object... args) {
         logInfo("Clicking on element: " + by);
-        getElement(by).shouldBe(Condition.visible).click();
+        getElement(by, args).shouldBe(Condition.visible).click();
     }
 
     /**
      * Вводит текст в поле.
      */
-    protected void typeText(By by, String text) {
+    protected void typeText(By by, String text, Object... args) {
         logInfo("Typing text '" + text + "' into element: " + by);
-        getElement(by).shouldBe(Condition.visible).setValue(text);
+        getElement(by, args).shouldBe(Condition.visible).setValue(text);
     }
 
     /**
      * Ожидает, пока элемент станет видимым.
      */
-    protected void waitForVisibility(By by) {
+    protected void waitForElementVisibility(By by, Object... args) {
         logInfo("Waiting for visibility of element: " + by);
-        getElement(by).shouldBe(Condition.visible);
+        getElement(by, args).shouldBe(Condition.visible);
     }
 
     /**
      * Проверяет, существует ли элемент.
      */
-    protected boolean isElementPresent(By by) {
-        boolean exists = getElement(by).is(Condition.exist);
-        logInfo("Element exists (" + by + "): " + exists);
-        return exists;
+    protected boolean isElementPresent(By by, Object... args) {
+        boolean exist = getElement(by, args).is(Condition.exist);
+        logInfo("Element exists (" + by + "): " + exist);
+        return exist;
+    }
+
+    /**
+     * Проверяет видно ли элемент на странице
+     */
+    protected boolean isElementVisible(By by, Object... args) {
+        boolean exist = getElement(by, args).is(Condition.visible);
+        logInfo("Element " + by + " visible");
+        return exist;
+    }
+
+    protected String getElementText(By by, Object... args) {
+        SelenideElement element = getElement(by, args);
+        element.shouldBe(Condition.visible);
+        String text = element.getText();
+        logInfo("Text of element " + by + ": " + text);
+        return text;
     }
 }

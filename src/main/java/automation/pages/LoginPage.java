@@ -9,6 +9,7 @@ public class LoginPage extends PageTools {
     private static final By usernameField = By.id("user-name");
     private static final By passwordField = By.id("password");
     private static final By loginButton = By.id("login-button");
+    private static final By loginBox = By.xpath("//div[@class='login-box']");
 
 
     public void typeUsername(String username) {
@@ -21,5 +22,10 @@ public class LoginPage extends PageTools {
 
     public void clickSubmitButton() {
         clickElement(loginButton);
+    }
+
+    public boolean isLoginPageDisplayed() {
+        waitForElementVisibility(loginBox);
+        return isElementVisible(loginBox);
     }
 }
