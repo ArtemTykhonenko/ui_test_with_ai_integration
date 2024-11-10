@@ -14,6 +14,13 @@
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
         <cucumber.version>7.15.0</cucumber.version>
         <allure.version>2.29.0</allure.version>
+        <aspectj.version>1.9.9.1</aspectj.version>
+        <test.resource.dir>src/test/resources</test.resource.dir>
+        <suiteXmlFile>AllTest</suiteXmlFile>
+        <main.resource.dir>${project.basedir}/src/main/resources</main.resource.dir>
+        <client.resource.dir>${main.resource.dir}/client</client.resource.dir>
+        <allurereportfolder>${project.basedir}/allure-results</allurereportfolder>
+        <surefire.rerunFailingTestsCount>2</surefire.rerunFailingTestsCount>
     </properties>
 
     <dependencies>
@@ -82,25 +89,43 @@
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
-    </dependencies>
 
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+    </dependencies>
 
     <build>
         <plugins>
-            <!-- Maven Surefire Plugin для выполнения тестов -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.1</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${test.resource.dir}/${suiteXmlFile}.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <systemProperties>
+                        <client.resource.dir>${client.resource.dir}</client.resource.dir>
+                        <allurereportfolder>${allurereportfolder}</allurereportfolder>
+                    </systemProperties>
+                    <includes>
+                        <include>**/*TestRunner*.java</include>
+                    </includes>
+                </configuration>
             </plugin>
 
-            <!-- Allure Maven Plugin для генерации отчетов -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
                 <configuration>
-                    <reportVersion>2.29.0</reportVersion> <!-- Убедитесь, что версия соответствует -->
+                    <reportVersion>${allure.version}</reportVersion>
                 </configuration>
             </plugin>
         </plugins>

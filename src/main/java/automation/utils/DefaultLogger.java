@@ -1,6 +1,5 @@
 package automation.utils;
 
-import automation.base.BaseTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +9,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
 
-public class DefaultLogger extends BaseTest {
+public class DefaultLogger {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private LogType logType;
     private final java.util.logging.Logger log = java.util.logging.Logger.getLogger(this.getClass().getName());

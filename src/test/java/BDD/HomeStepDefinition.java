@@ -1,6 +1,5 @@
 package BDD;
 
-import automation.actions.Actions;
 import automation.data.entities.Product;
 import automation.pages.Pages;
 import automation.utils.DefaultLogger;
@@ -11,7 +10,7 @@ import org.testng.Assert;
 public class HomeStepDefinition extends DefaultLogger {
     private final GlobalContext globalContext;
 
-    public HomeStepDefinition (GlobalContext crmGlobalContext) {
+    public HomeStepDefinition(GlobalContext crmGlobalContext) {
         this.globalContext = crmGlobalContext;
     }
 
