@@ -30,12 +30,9 @@ public class Hooks extends DefaultLogger {
     @After
     public void tearDown() {
         if (driver != null) {
-            // Очищаем кэш перед закрытием драйвера
-            logger.info("Start clear cache........");
+            logger.info("Start clear cache..................................................................");
             driver.manage().deleteAllCookies();
             logger.info("Cache cleared.");
-
-            // Закрываем драйвер
             DriverManager.quitDriver();
             logger.info("WebDriver closed");
         }
