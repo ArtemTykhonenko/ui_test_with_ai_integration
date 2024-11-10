@@ -4,9 +4,7 @@ import automation.base.DriverManager;
 import automation.utils.DefaultLogger;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,28 +20,24 @@ public class Hooks extends DefaultLogger {
     @Before
     public void setUp() {
         String browser = System.getProperty("browser", "chrome");
-
-        // Инициализация WebDriver через DriverManager
         driver = DriverManager.getDriver(browser);
-        logger.info("Запускаем тесты в {}", browser);
-
-        // Инициализация WebDriverWait
+        logger.info("Open {} browser", browser);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        logger.info("Инициализирован WebDriver и WebDriverWait");
-
-        // Максимизация окна браузера
-        maximizeWindow();
+        logger.info("Initialized WebDriver и WebDriverWait");
+        driver.manage().window().maximize();
     }
 
     @After
     public void tearDown() {
-        try {
-            if (driver != null) {
-                DriverManager.quitDriver(); // Используем метод из DriverManager для закрытия драйвера
-                logger.info("Закрыт драйвер браузера");
-            }
-        } catch (Exception e) {
-            logger.error("Ошибка при закрытии драйвера: {}", e.getMessage());
+        if (driver != null) {
+            // Очищаем кэш перед закрытием драйвера
+            logger.info("Start clear cache........");
+            driver.manage().deleteAllCookies();
+            logger.info("Cache cleared.");
+
+            // Закрываем драйвер
+            DriverManager.quitDriver();
+            logger.info("WebDriver closed");
         }
     }
 
@@ -53,25 +47,5 @@ public class Hooks extends DefaultLogger {
 
     public WebDriverWait getWait() {
         return wait;
-    }
-
-    public void clearCache() {
-        logger.info("Очистка кеша...");
-        driver.manage().deleteAllCookies();
-        logger.info("Кэш очищен");
-    }
-
-    public void waitForElementToBeVisible(By locator) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        logger.info("Элемент стал видимым: {}", locator);
-    }
-
-    private void maximizeWindow() {
-        try {
-            driver.manage().window().maximize();
-            logger.info("Максимизировано окно браузера");
-        } catch (Exception e) {
-            logger.warn("Не удалось максимизировать окно браузера: {}", e.getMessage());
-        }
     }
 }
