@@ -128,6 +128,44 @@
                     <reportVersion>${allure.version}</reportVersion>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <!-- Cleans the allure-results directory -->
+                        <fileset>
+                            <directory>${project.basedir}/allure-results</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileset>
+                        <!-- Cleans the build/downloads directory -->
+                        <fileset>
+                            <directory>${project.basedir}/build/downloads</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileset>
+                        <!-- Cleans the build/reports/tests directory -->
+                        <fileset>
+                            <directory>${project.basedir}/build/reports/tests</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileset>
+                        <!-- Cleans the cucumber-reports/html directory -->
+                        <fileset>
+                            <directory>${project.basedir}/cucumber-reports/html</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
