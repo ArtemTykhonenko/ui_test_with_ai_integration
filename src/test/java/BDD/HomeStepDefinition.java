@@ -3,11 +3,12 @@ package BDD;
 import automation.actions.Actions;
 import automation.data.entities.Product;
 import automation.pages.Pages;
+import automation.utils.DefaultLogger;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 
-public class HomeStepDefinition {
+public class HomeStepDefinition extends DefaultLogger {
     private final GlobalContext globalContext;
 
     public HomeStepDefinition (GlobalContext crmGlobalContext) {
@@ -45,7 +46,7 @@ public class HomeStepDefinition {
     }
 
     @When("Click on 'Cart' link")
-    public void clickCartLink() {
+    public void crclickCartLink() {
         Pages.homePage().clickCartLink();
     }
 
@@ -60,10 +61,11 @@ public class HomeStepDefinition {
         globalContext.product.setProductName(Pages.homePage().getProductNameByNumber(number));
         globalContext.product.setProductDescription(Pages.homePage().getProductDescriptionByNumber(number));
         globalContext.product.setProductPrice(Pages.homePage().getProductPriceByNumber(number));
+        logInfo("");
     }
 
     @Then("The 'Remove' button is displayed for {int} product")
     public void theRemoveButtonIsDisplayedForProductByNumber(Integer number) {
-        Assert.assertTrue(Pages.homePage().isRemoveButtonDisplayedForProductByNumber(number));
+        Assert.assertTrue(Pages.homePage().isRemoveButtonDisplayedForProductByNumber(number), "The 'Remove' button is NOT displayed");
     }
 }
