@@ -1,24 +1,29 @@
 package automation.pages;
 
-import automation.base.BaseTest;
-
 public class Pages {
-    private BaseTest baseTest;
-    private LoginPage loginPage;
-    private HomePage homePage;
+    private static LoginPage loginPage;
+    private static HomePage homePage;
+    private static CartPage cartPage;
 
-    public Pages(BaseTest baseTest) {
-        this.baseTest = baseTest;
-        this.loginPage = new LoginPage(baseTest);
-        this.homePage = new HomePage(baseTest);
-    }
-
-    public LoginPage loginPage() {
+    public static LoginPage loginPage() {
+        if (loginPage == null) {
+            loginPage = new LoginPage();
+        }
         return loginPage;
     }
 
-    public HomePage homePage() {
+    public static HomePage homePage() {
+        if (homePage == null) {
+            homePage = new HomePage();
+        }
         return homePage;
+    }
+
+    public static CartPage cartPage() {
+        if (cartPage == null) {
+            cartPage = new CartPage();
+        }
+        return cartPage;
     }
 }
 
