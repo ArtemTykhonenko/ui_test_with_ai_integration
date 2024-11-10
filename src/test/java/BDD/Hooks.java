@@ -1,6 +1,6 @@
 package BDD;
 
-import automation.base.DriverManager;
+import automation.base.DriverManager; // Убедитесь, что этот путь корректен
 import automation.utils.DefaultLogger;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
@@ -20,7 +20,7 @@ public class Hooks extends DefaultLogger {
     @Before
     public void setUp() {
         String browser = System.getProperty("browser", "chrome");
-        driver = DriverManager.getDriver(browser);
+        driver = DriverManager.getInstance().getDriver(browser); // Вызов нестатического метода через Singleton
         logger.info("Open {} browser", browser);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         logger.info("Initialized WebDriver и WebDriverWait");
@@ -33,7 +33,7 @@ public class Hooks extends DefaultLogger {
             logger.info("Start clear cache..................................................................");
             driver.manage().deleteAllCookies();
             logger.info("Cache cleared.");
-            DriverManager.quitDriver();
+            DriverManager.getInstance().quitDriver(); // Вызов нестатического метода через Singleton
             logger.info("WebDriver closed");
         }
     }

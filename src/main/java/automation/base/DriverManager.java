@@ -1,24 +1,37 @@
 package automation.base;
 
-import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverManager {
+    private static DriverManager instance;
+    private WebDriver driver;
+    private String currentBrowser;
 
-    private static WebDriver driver;
+    // Приватный конструктор
+    private DriverManager() {}
 
-    public static WebDriver getDriver(String browser) {
-        if (driver == null) {
-            setupDriver(browser);
+    // Метод для получения единственного экземпляра
+    public static DriverManager getInstance() {
+        if (instance == null) {
+            instance = new DriverManager(); // Ленивая инициализация
+        }
+        return instance;
+    }
+
+    public WebDriver getDriver(String browser) {
+        // Проверяем, нужно ли создавать новый драйвер
+        if (driver == null || !browser.equals(currentBrowser)) {
+            currentBrowser = browser; // Сохраняем текущий браузер
+            setupDriver(browser); // Инициализация драйвера в зависимости от выбранного браузера
         }
         return driver;
     }
 
-    private static void setupDriver(String browser) {
+    private void setupDriver(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
@@ -33,19 +46,18 @@ public class DriverManager {
                 driver = new EdgeDriver();
                 break;
             default:
-                throw new IllegalArgumentException("Do not support this browser: " + browser);
+                throw new IllegalArgumentException("Браузер не поддерживается: " + browser);
         }
 
-        // Налаштування Selenide
-        Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 10000;
-        Configuration.reportsFolder = "target/screenshots";
+        // Настройки драйвера
+        driver.manage().window().maximize();
     }
 
-    public static void quitDriver() {
+    public void quitDriver() {
         if (driver != null) {
             driver.quit();
-            driver = null;
+            driver = null; // Обнуляем драйвер после выхода
+            currentBrowser = null; // Сбрасываем выбранный браузер
         }
     }
 }
