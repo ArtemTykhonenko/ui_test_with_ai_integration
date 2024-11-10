@@ -52,6 +52,13 @@
             <version>${webdrivermanager.version}</version>
         </dependency>
 
+        <!-- AOP для аспектно-ориентированного программирования -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>2.5.5</version> <!-- Убедитесь, что версия актуальна -->
+        </dependency>
+
         <!-- Cucumber для BDD тестирования -->
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -72,7 +79,7 @@
         <!-- Allure для Cucumber -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-cucumber7-jvm</artifactId> <!-- Замените на актуальную версию -->
+            <artifactId>allure-cucumber7-jvm</artifactId>
             <version>${allure.version}</version>
         </dependency>
 
@@ -83,18 +90,17 @@
             <version>${allure.version}</version>
         </dependency>
 
-        <!-- JSON handling for AI response processing -->
+        <!-- Зависимости для работы с API -->
         <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20240303</version>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.2</version> <!-- Убедитесь, что версия актуальна -->
         </dependency>
-
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.11.0</version> <!-- Для парсинга JSON -->
+        </dependency>
     </dependencies>
 
     <build>
