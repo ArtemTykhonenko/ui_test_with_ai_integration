@@ -9,16 +9,32 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverManager {
 
-    private static WebDriver driver;
+    private static DriverManager instance;
+    private WebDriver driver;
 
-    public static WebDriver getDriver(String browser) {
+    private DriverManager() {
+        // Private constructor to prevent instantiation
+    }
+
+    public static DriverManager getInstance() {
+        if (instance == null) {
+            synchronized (DriverManager.class) {
+                if (instance == null) {
+                    instance = new DriverManager();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public WebDriver getDriver(String browser) {
         if (driver == null) {
             setupDriver(browser);
         }
         return driver;
     }
 
-    private static void setupDriver(String browser) {
+    private void setupDriver(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
@@ -36,13 +52,13 @@ public class DriverManager {
                 throw new IllegalArgumentException("Do not support this browser: " + browser);
         }
 
-        // Налаштування Selenide
+        // Selenide configuration
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 10000;
         Configuration.reportsFolder = "target/screenshots";
     }
 
-    public static void quitDriver() {
+    public void quitDriver() {
         if (driver != null) {
             driver.quit();
             driver = null;

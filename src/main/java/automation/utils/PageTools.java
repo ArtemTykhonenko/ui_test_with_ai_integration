@@ -63,7 +63,7 @@ public class PageTools extends DefaultLogger {
     }
 
     /**
-     * Проверяет видно ли элемент на странице
+     * Проверяет видно ли элемент на странице.
      */
     protected boolean isElementVisible(By by, Object... args) {
         boolean exist = getElement(by, args).is(Condition.visible);
