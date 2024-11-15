@@ -5,7 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// Указываем, что аннотация может применяться как к методам, так и к классам
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
 public @interface LocatorAutoFixer {
+    // Дополнительные параметры могут быть добавлены здесь, если потребуется
 }

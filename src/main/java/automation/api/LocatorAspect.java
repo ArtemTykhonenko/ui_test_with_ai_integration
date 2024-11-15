@@ -11,8 +11,8 @@ import automation.base.DriverManager;
 
 @Aspect
 public class LocatorAspect {
-    private static final Logger logger = LoggerFactory.getLogger(LocatorAspect.class);
-    private final ChatGPTClient chatGPTClient = new ChatGPTClient();
+    private static Logger logger = LoggerFactory.getLogger(LocatorAspect.class);
+    private ChatGPTClient chatGPTClient = new ChatGPTClient();
 
     @Around("within(@automation.api.LocatorAutoFixer *)")
     public Object handleLocatorAutoFix(ProceedingJoinPoint joinPoint) throws Throwable {

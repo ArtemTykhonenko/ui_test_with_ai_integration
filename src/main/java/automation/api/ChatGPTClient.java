@@ -1,5 +1,6 @@
 package automation.api;
 
+import automation.utils.Constants;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +9,10 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class ChatGPTClient {
-    private static final Logger logger = LoggerFactory.getLogger(ChatGPTClient.class);
-    private static final String API_URL = "https://api.openai.com/v1/completions";
-    private static final String API_KEY = "YOUR_OPENAI_API_KEY_HERE"; // Замените на ваш ключ API
-    private static final OkHttpClient client = new OkHttpClient.Builder()
+    private static Logger logger = LoggerFactory.getLogger(ChatGPTClient.class);
+    private static String API_URL = "https://api.openai.com/v1/completions";
+    private static String API_KEY = Constants.ChatGPTAPI; // Замените на ваш ключ API
+    private static OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

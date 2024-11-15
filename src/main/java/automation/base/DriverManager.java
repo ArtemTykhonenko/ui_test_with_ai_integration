@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class DriverManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(DriverManager.class);
+    private static Logger logger = LoggerFactory.getLogger(DriverManager.class);
     private static DriverManager instance;
     private WebDriver driver;
 

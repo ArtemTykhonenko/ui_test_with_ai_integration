@@ -23,7 +23,7 @@ public class LoginStepDefinition extends PageTools {
 
     @Given("Open 'Swag Labs' login page")
     public void goToLoginPage() {
-        driver.get(Constants.SWAG_LABS_LOGIN_PAGE);
+        openUrl(Constants.SWAG_LABS_LOGIN_PAGE);
     }
 
     @Then("The 'Swag Labs' login page is displayed")
