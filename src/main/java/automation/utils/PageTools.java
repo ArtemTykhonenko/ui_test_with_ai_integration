@@ -1,81 +1,73 @@
 package automation.utils;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
+import automation.api.LocatorAutoFixer;
+import automation.base.DriverManager;
+import io.cucumber.core.logging.Logger;
+import io.cucumber.core.logging.LoggerFactory;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.codeborne.selenide.Selenide.$;
+import java.time.Duration;
 
+@LocatorAutoFixer
 public class PageTools extends DefaultLogger {
 
-    private static String getPreviousMethodNameAsText() {
-        String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
-        String replacedMethodName = methodName.replaceAll(
-                String.format("%s|%s|%s",
-                        "(?<=[A-Z])(?=[A-Z][a-z])",
-                        "(?<=[^A-Z])(?=[A-Z])",
-                        "(?<=[A-Za-z])(?=[^A-Za-z])"
-                ),
-                " "
-        );
-        return replacedMethodName.substring(0, 1).toUpperCase() + replacedMethodName.substring(1).toLowerCase();
+    private static Logger logger = LoggerFactory.getLogger(PageTools.class);
+    private WebDriver driver;
+    private WebDriverWait wait;
+
+    public PageTools() {
+        this.driver = DriverManager.getInstance().getDriver("chrome");
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    /**
-     * Получает элемент по заданному локатору с помощью LocatorParser.
-     */
-    protected SelenideElement getElement(By by, Object... args) {
-        logInfo("Getting element by locator: " + by, args);
-        return $(LocatorParser.parseLocator(by, args));
+    public void openUrl(String url, Object... args) {
+        driver.get(url);
+        logInfo("Opened URL: " + url);
     }
 
-    /**
-     * Нажимает на элемент.
-     */
-    protected void clickElement(By by, Object... args) {
-        logInfo("Clicking on element: " + by);
-        getElement(by, args).shouldBe(Condition.visible).click();
+    public void typeText(By locator, String text, Object... args) {
+        WebElement element = waitForElementVisibility(locator, args);
+        element.clear();
+        element.sendKeys(text);
+        logInfo("Typed text '" + text + "' into element: " + locator);
     }
 
-    /**
-     * Вводит текст в поле.
-     */
-    protected void typeText(By by, String text, Object... args) {
-        logInfo("Typing text '" + text + "' into element: " + by);
-        getElement(by, args).shouldBe(Condition.visible).setValue(text);
+    public void clickElement(By locator, Object... args) {
+        WebElement element = waitForElementVisibility(locator, args);
+        element.click();
+        logInfo("Clicked on element: " + locator);
     }
 
-    /**
-     * Ожидает, пока элемент станет видимым.
-     */
-    protected void waitForElementVisibility(By by, Object... args) {
-        logInfo("Waiting for visibility of element: " + by);
-        getElement(by, args).shouldBe(Condition.visible);
+    public String getElementText(By locator, Object... args) {
+        WebElement element = waitForElementVisibility(locator, args);
+        return element.getText();
     }
 
-    /**
-     * Проверяет, существует ли элемент.
-     */
-    protected boolean isElementPresent(By by, Object... args) {
-        boolean exist = getElement(by, args).is(Condition.exist);
-        logInfo("Element exists (" + by + "): " + exist);
-        return exist;
+    public boolean isElementVisible(By locator, Object... args) {
+        WebElement element = waitForElementVisibility(locator, args);
+        return element.isDisplayed();
     }
 
-    /**
-     * Проверяет видно ли элемент на странице.
-     */
-    protected boolean isElementVisible(By by, Object... args) {
-        boolean exist = getElement(by, args).is(Condition.visible);
-        logInfo("Element " + by + " visible");
-        return exist;
+    public WebElement waitForElementVisibility(By locator, Object... args) {
+        By formattedLocator = formatLocator(locator, args);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(formattedLocator));
     }
 
-    protected String getElementText(By by, Object... args) {
-        SelenideElement element = getElement(by, args);
-        element.shouldBe(Condition.visible);
-        String text = element.getText();
-        logInfo("Text of element " + by + ": " + text);
-        return text;
+    private By formatLocator(By by, Object... args) {
+        if (args != null && args.length > 0) {
+            String locator = String.format(by.toString(), args);
+            if (by.toString().startsWith("By.xpath:")) {
+                return By.xpath(locator.replace("By.xpath: ", ""));
+            } else if (by.toString().startsWith("By.cssSelector:")) {
+                return By.cssSelector(locator.replace("By.cssSelector: ", ""));
+            } else if (by.toString().startsWith("By.id:")) {
+                return By.id(locator.replace("By.id: ", ""));
+            }
+        }
+        return by;
     }
 }

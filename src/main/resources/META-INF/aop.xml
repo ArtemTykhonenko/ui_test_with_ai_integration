@@ -1,11 +1,8 @@
 <aspectj>
     <aspects>
-        <!-- Указываем Aspect классы, которые должны быть активированы -->
-        <aspect name="automation.api.LocatorAspect" />
+        <aspect name="automation.api.LocatorAspect"/>
     </aspects>
-
     <weaver>
-        <!-- Определяем, какие классы будут подвергаться перехвату -->
-        <include within="automation.utils.PageTools" />
+        <include within="automation.utils.PageTools"/>
     </weaver>
 </aspectj>

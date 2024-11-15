@@ -1,14 +1,17 @@
 package automation.base;
 
-import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.safari.SafariDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DriverManager {
 
+    private static final Logger logger = LoggerFactory.getLogger(DriverManager.class);
     private static DriverManager instance;
     private WebDriver driver;
 
@@ -48,19 +51,21 @@ public class DriverManager {
                 WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
                 break;
+            case "safari":
+                driver = new SafariDriver();
+                break;
             default:
                 throw new IllegalArgumentException("Do not support this browser: " + browser);
         }
 
-        // Selenide configuration
-        Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 10000;
-        Configuration.reportsFolder = "target/screenshots";
+        // Logging browser setup
+        logger.info("Browser {} has been set up successfully", browser);
     }
 
     public void quitDriver() {
         if (driver != null) {
             driver.quit();
+            logger.info("Browser session has been terminated.");
             driver = null;
         }
     }

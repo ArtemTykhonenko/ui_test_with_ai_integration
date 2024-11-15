@@ -4,23 +4,26 @@ import automation.actions.Actions;
 import automation.pages.Pages;
 import automation.utils.Constants;
 import automation.utils.PageTools;
-import com.codeborne.selenide.Selenide;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import automation.base.DriverManager;
 
 public class LoginStepDefinition extends PageTools {
 
     private Actions actions;
+    private WebDriver driver;
 
     public LoginStepDefinition() {
         actions = new Actions();
+        driver = DriverManager.getInstance().getDriver("chrome");
     }
 
     @Given("Open 'Swag Labs' login page")
     public void goToLoginPage() {
-        Selenide.open(Constants.SWAG_LABS_LOGIN_PAGE);
+        driver.get(Constants.SWAG_LABS_LOGIN_PAGE);
     }
 
     @Then("The 'Swag Labs' login page is displayed")

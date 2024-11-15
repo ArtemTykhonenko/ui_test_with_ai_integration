@@ -3,20 +3,18 @@ package automation.api;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import automation.base.DriverManager;
 
-
 @Aspect
-@LocatorAutoFixer
 public class LocatorAspect {
     private static final Logger logger = LoggerFactory.getLogger(LocatorAspect.class);
     private final ChatGPTClient chatGPTClient = new ChatGPTClient();
 
-    @Around("execution(* automation.utils.PageTools.*(..))")
+    @Around("within(@automation.api.LocatorAutoFixer *)")
     public Object handleLocatorAutoFix(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info("Intercepted method call: {}", joinPoint.getSignature());
 
