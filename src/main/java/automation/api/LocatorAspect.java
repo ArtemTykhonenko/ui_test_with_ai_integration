@@ -22,10 +22,10 @@ public class LocatorAspect {
         try {
             return joinPoint.proceed();
         } catch (TimeoutException e) {
-            logger.error("TimeoutException intercepted in method: {}", joinPoint.getSignature(), e);
+            logger.warn("TimeoutException intercepted in method: {}", joinPoint.getSignature(), e);
             return handleLocatorAutoFixLogic(joinPoint, e);
         } catch (Exception e) {
-            logger.error("Exception intercepted in method: {}", joinPoint.getSignature(), e);
+            logger.warn("Exception intercepted in method: {}", joinPoint.getSignature(), e);
             return handleLocatorAutoFixLogic(joinPoint, e);
         }
     }
@@ -63,14 +63,21 @@ public class LocatorAspect {
             }
         }
 
+        // Если не удалось исправить локатор, выбрасываем оригинальное исключение
         throw originalException;
     }
 
+    /**
+     * Получение страницы из текущего драйвера.
+     */
     private String getCurrentPageSource() {
-        WebDriver driver = DriverManager.getInstance().getDriver("chrome");
+        WebDriver driver = DriverManager.getDriver(null);
         return driver != null ? driver.getPageSource() : "";
     }
 
+    /**
+     * Запрос на исправление локатора через ChatGPT.
+     */
     private String requestLocatorFix(String locator, String pageSource) {
         try {
             logger.info("Sending request to ChatGPT for locator fix...");
@@ -81,18 +88,28 @@ public class LocatorAspect {
         }
     }
 
+    /**
+     * Парсинг исправленного локатора.
+     */
     private By parseLocator(String locatorStr) {
         try {
             if (locatorStr.startsWith("By.id")) {
-                return By.id(locatorStr.substring(locatorStr.indexOf("\"") + 1, locatorStr.lastIndexOf("\"")));
+                return By.id(extractLocatorValue(locatorStr));
             } else if (locatorStr.startsWith("By.cssSelector")) {
-                return By.cssSelector(locatorStr.substring(locatorStr.indexOf("\"") + 1, locatorStr.lastIndexOf("\"")));
+                return By.cssSelector(extractLocatorValue(locatorStr));
             } else if (locatorStr.startsWith("By.xpath")) {
-                return By.xpath(locatorStr.substring(locatorStr.indexOf("\"") + 1, locatorStr.lastIndexOf("\"")));
+                return By.xpath(extractLocatorValue(locatorStr));
             }
         } catch (Exception e) {
             logger.error("Error while parsing locator string: {}", locatorStr, e);
         }
         return null;
+    }
+
+    /**
+     * Извлечение значения из строки локатора.
+     */
+    private String extractLocatorValue(String locatorStr) {
+        return locatorStr.substring(locatorStr.indexOf("\"") + 1, locatorStr.lastIndexOf("\""));
     }
 }

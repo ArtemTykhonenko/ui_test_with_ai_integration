@@ -20,6 +20,6 @@ public class Constants {
     /**
      * API key
      **/
-    public static final String ChatGPTAPI = "YOUR API";
+    public static final String ChatGPTAPI = "YOUR KEY";
 
 }

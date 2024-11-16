@@ -10,63 +10,50 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DriverManager {
+    private static final Logger logger = LoggerFactory.getLogger(DriverManager.class);
 
-    private static Logger logger = LoggerFactory.getLogger(DriverManager.class);
-    private static DriverManager instance;
-    private WebDriver driver;
+    // Используем ThreadLocal для обеспечения независимости WebDriver для каждого потока
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    private DriverManager() {
-        // Private constructor to prevent instantiation
-    }
-
-    public static DriverManager getInstance() {
-        if (instance == null) {
-            synchronized (DriverManager.class) {
-                if (instance == null) {
-                    instance = new DriverManager();
-                }
-            }
-        }
-        return instance;
-    }
-
-    public WebDriver getDriver(String browser) {
-        if (driver == null) {
+    public static WebDriver getDriver(String browser) {
+        if (driver.get() == null) {
             setupDriver(browser);
         }
-        return driver;
+        return driver.get();
     }
 
-    private void setupDriver(String browser) {
+    private static void setupDriver(String browser) {
+        WebDriver webDriver;
         switch (browser.toLowerCase()) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
+                webDriver = new ChromeDriver();
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
-                driver = new FirefoxDriver();
+                webDriver = new FirefoxDriver();
                 break;
             case "edge":
                 WebDriverManager.edgedriver().setup();
-                driver = new EdgeDriver();
+                webDriver = new EdgeDriver();
                 break;
             case "safari":
-                driver = new SafariDriver();
+                webDriver = new SafariDriver();
                 break;
             default:
-                throw new IllegalArgumentException("Do not support this browser: " + browser);
+                throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
-
-        // Logging browser setup
+        webDriver.manage().window().maximize();
+        driver.set(webDriver);
         logger.info("Browser {} has been set up successfully", browser);
     }
 
-    public void quitDriver() {
-        if (driver != null) {
-            driver.quit();
+    public static void quitDriver() {
+        WebDriver webDriver = driver.get();
+        if (webDriver != null) {
+            webDriver.quit();
             logger.info("Browser session has been terminated.");
-            driver = null;
+            driver.remove();
         }
     }
 }
