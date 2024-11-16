@@ -7,14 +7,16 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
         features = "src/test/resources/features",
         plugin = {
-                "pretty", "html:cucumber-reports/html/report.html",
-                "json:target/cucumber-report/report.json",
+                "pretty",
+                "html:target/cucumber-reports/report.html",
+                "json:target/cucumber-reports/report.json",
                 "BDD.StepsLogger",
-                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
-                "rerun:target/rerun/rerun.txt"},
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
+        },
         tags = "@test"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
+
         @Override
         @DataProvider(parallel = true)
         public Object[][] scenarios() {

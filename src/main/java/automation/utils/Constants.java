@@ -20,6 +20,6 @@ public class Constants {
     /**
      * API key
      **/
-    public static final String ChatGPTAPI = "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";
+    public static final String ChatGPTAPI = "YOUR API";
 
 }

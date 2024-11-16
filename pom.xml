@@ -116,6 +116,12 @@
             <version>2.11.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230618</version>
+        </dependency>
+
         <!-- AspectJ для перехвата методов и аспектно-ориентированного программирования -->
         <dependency>
             <groupId>org.aspectj</groupId>
