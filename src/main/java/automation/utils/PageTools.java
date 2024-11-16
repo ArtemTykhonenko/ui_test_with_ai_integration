@@ -1,11 +1,13 @@
 package automation.utils;
 
+import automation.api.LocatorAutoFixer;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
+@LocatorAutoFixer
 public class PageTools extends DefaultLogger {
 
     private static String getPreviousMethodNameAsText() {

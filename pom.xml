@@ -7,20 +7,30 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>17</java.version>
-        <selenide.version>7.5.1</selenide.version>
+        <java.version>11</java.version>
+        <selenide.version>6.19.0</selenide.version>
         <testng.version>7.10.2</testng.version>
         <logback.version>1.5.11</logback.version>
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
         <cucumber.version>7.15.0</cucumber.version>
         <allure.version>2.29.0</allure.version>
         <aspectj.version>1.9.9.1</aspectj.version>
+
+        <!-- Пути к ресурсам и отчетам -->
         <test.resource.dir>src/test/resources</test.resource.dir>
         <suiteXmlFile>AllTest</suiteXmlFile>
         <main.resource.dir>${project.basedir}/src/main/resources</main.resource.dir>
         <client.resource.dir>${main.resource.dir}/client</client.resource.dir>
         <allurereportfolder>${project.basedir}/allure-results</allurereportfolder>
+
+        <!-- Параметры для Maven и тестов -->
         <surefire.rerunFailingTestsCount>2</surefire.rerunFailingTestsCount>
+
+        <!-- Динамические параметры для тестов -->
+        <browser>chrome</browser>
+        <headless>false</headless>
+        <threadcount>1</threadcount>
+        <dataproviderthreadcount>1</dataproviderthreadcount>
     </properties>
 
     <dependencies>
@@ -112,19 +122,33 @@
                 <configuration>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.lang.reflect=ALL-UNNAMED
                     </argLine>
+
+                    <!-- Указываем путь к suite XML файлу -->
                     <suiteXmlFiles>
                         <suiteXmlFile>${test.resource.dir}/${suiteXmlFile}.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <systemProperties>
+
+                    <!-- Передача динамических параметров через системные свойства -->
+                    <systemPropertyVariables>
+                        <browser>${browser}</browser>
+                        <headless>${headless}</headless>
+                        <dataproviderthreadcount>${threadcount}</dataproviderthreadcount>
                         <client.resource.dir>${client.resource.dir}</client.resource.dir>
                         <allurereportfolder>${allurereportfolder}</allurereportfolder>
-                    </systemProperties>
+                    </systemPropertyVariables>
+
                     <includes>
                         <include>**/*TestRunner*.java</include>
                     </includes>
+
+                    <!-- Настройки для перезапуска неудачных тестов -->
+                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
                 </configuration>
             </plugin>
+
 
             <plugin>
                 <groupId>io.qameta.allure</groupId>

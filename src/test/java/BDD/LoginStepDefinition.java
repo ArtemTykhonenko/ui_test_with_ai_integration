@@ -30,31 +30,31 @@ public class LoginStepDefinition extends PageTools {
 
     @When("Login to 'Swag Labs' as standard user")
     public void loginAsStandardUser() {
-        actions.loginActions().loginToSwagLabs(Constants.STANDARD_USER, Constants.PASSWORD);
+        Actions.loginActions().loginToSwagLabs(Constants.STANDARD_USER, Constants.PASSWORD);
     }
 
     @When("Login to 'Swag Labs' as locked user")
     public void loginAsLockedUser() {
-        actions.loginActions().loginToSwagLabs(Constants.LOCKED_USER, Constants.PASSWORD);
+        Actions.loginActions().loginToSwagLabs(Constants.LOCKED_USER, Constants.PASSWORD);
     }
 
     @When("Login to 'Swag Labs' as problem user")
     public void loginAsProblrmUser() {
-        actions.loginActions().loginToSwagLabs(Constants.PROBLEM_USER, Constants.PASSWORD);
+        Actions.loginActions().loginToSwagLabs(Constants.PROBLEM_USER, Constants.PASSWORD);
     }
 
     @When("Login to 'Swag Labs' as performance glitch user")
     public void loginAsPerformanceGlitchUser() {
-        actions.loginActions().loginToSwagLabs(Constants.PERFORMANCE_USER, Constants.PASSWORD);
+        Actions.loginActions().loginToSwagLabs(Constants.PERFORMANCE_USER, Constants.PASSWORD);
     }
 
     @When("Login to 'Swag Labs' as error user")
     public void loginAsErrorUser() {
-        actions.loginActions().loginToSwagLabs(Constants.ERROR_USER, Constants.PASSWORD);
+        Actions.loginActions().loginToSwagLabs(Constants.ERROR_USER, Constants.PASSWORD);
     }
 
     @When("Login to 'Swag Labs as visual user")
     public void loginAsVisualUser() {
-        actions.loginActions().loginToSwagLabs(Constants.VISUAL_USER, Constants.PASSWORD);
+        Actions.loginActions().loginToSwagLabs(Constants.VISUAL_USER, Constants.PASSWORD);
     }
 }
