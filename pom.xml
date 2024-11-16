@@ -11,13 +11,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <file.encoding>UTF-8</file.encoding>
-        <selenium.version>4.25.0</selenium.version>
+        <selenium.version>4.26.0</selenium.version>
         <testng.version>7.7.0</testng.version>
         <logback.version>1.2.11</logback.version>
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
         <cucumber.version>7.15.0</cucumber.version>
         <allure.version>2.29.0</allure.version>
-        <aspectj.version>1.9.22</aspectj.version>
+        <aspectj.version>1.9.19</aspectj.version>
         <test.resource.dir>src/test/resources</test.resource.dir>
         <suiteXmlFile>AllTest</suiteXmlFile>
         <main.resource.dir>${project.basedir}/src/main/resources</main.resource.dir>
@@ -147,6 +147,8 @@
                 <configuration>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.lang.reflect=ALL-UNNAMED
                     </argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>${test.resource.dir}/${suiteXmlFile}.xml</suiteXmlFile>
