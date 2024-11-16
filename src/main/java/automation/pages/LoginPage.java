@@ -6,10 +6,10 @@ import org.openqa.selenium.By;
 public class LoginPage extends PageTools {
 
     // Локаторы
-    private static By usernameField = By.id("user-name .");
-    private static By passwordField = By.id("password *");
-    private static By loginButton = By.id("login-button -");
-    private static By loginBox = By.xpath("//div[@class='login-box'] 7");
+    private static By usernameField = By.id("user-name");
+    private static By passwordField = By.id("password .");
+    private static By loginButton = By.id("login-button");
+    private static By loginBox = By.xpath("//div[@class='login-box']");
 
 
     public void typeUsername(String username) {
