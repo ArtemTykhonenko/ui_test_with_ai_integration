@@ -18,7 +18,8 @@ public class LoginStepDefinition extends PageTools {
 
     public LoginStepDefinition() {
         actions = new Actions();
-        driver = DriverManager.getInstance().getDriver("chrome");
+        // Используем существующий экземпляр драйвера, инициализированный в Hooks
+        driver = DriverManager.getDriver(null);
     }
 
     @Given("Open 'Swag Labs' login page")
@@ -42,7 +43,7 @@ public class LoginStepDefinition extends PageTools {
     }
 
     @When("Login to 'Swag Labs' as problem user")
-    public void loginAsProblrmUser() {
+    public void loginAsProblemUser() {
         actions.loginActions().loginToSwagLabs(Constants.PROBLEM_USER, Constants.PASSWORD);
     }
 
@@ -56,7 +57,7 @@ public class LoginStepDefinition extends PageTools {
         actions.loginActions().loginToSwagLabs(Constants.ERROR_USER, Constants.PASSWORD);
     }
 
-    @When("Login to 'Swag Labs as visual user")
+    @When("Login to 'Swag Labs' as visual user")
     public void loginAsVisualUser() {
         actions.loginActions().loginToSwagLabs(Constants.VISUAL_USER, Constants.PASSWORD);
     }

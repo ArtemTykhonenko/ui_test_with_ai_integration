@@ -20,29 +20,15 @@ public class Hooks extends DefaultLogger {
     @Before
     public void setUp() {
         String browser = System.getProperty("browser", "chrome");
-        driver = DriverManager.getInstance().getDriver(browser);
+        driver = DriverManager.getDriver(browser);
         logger.info("Open {} browser", browser);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         logger.info("Initialized WebDriver and WebDriverWait");
-        driver.manage().window().maximize();
     }
 
     @After
     public void tearDown() {
-        if (driver != null) {
-            logger.info("Start clear cache..................................................................");
-            driver.manage().deleteAllCookies();
-            logger.info("Cache cleared.");
-            DriverManager.getInstance().quitDriver();
-            logger.info("WebDriver closed");
-        }
-    }
-
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    public WebDriverWait getWait() {
-        return wait;
+        DriverManager.quitDriver();
+        logger.info("WebDriver closed");
     }
 }

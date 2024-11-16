@@ -15,12 +15,14 @@ import java.time.Duration;
 @LocatorAutoFixer
 public class PageTools extends DefaultLogger {
 
-    private static Logger logger = LoggerFactory.getLogger(PageTools.class);
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private static final Logger logger = LoggerFactory.getLogger(PageTools.class);
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
+    // Инициализация драйвера через DriverManager
     public PageTools() {
-        this.driver = DriverManager.getInstance().getDriver("chrome");
+        // Используем уже существующий экземпляр драйвера
+        this.driver = DriverManager.getDriver(null);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
