@@ -16,4 +16,10 @@ public class Constants {
     public static final String ERROR_USER = "error_user";
     public static final String VISUAL_USER = "visual_user";
     public static final String PASSWORD = "secret_sauce";
+
+    /**
+     * API key
+     **/
+    public static final String ChatGPTAPI = "YOUR API";
+
 }

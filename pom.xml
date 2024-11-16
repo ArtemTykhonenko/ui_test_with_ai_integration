@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
@@ -7,14 +7,17 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>17</java.version>
-        <selenide.version>7.5.1</selenide.version>
-        <testng.version>7.10.2</testng.version>
-        <logback.version>1.5.11</logback.version>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <file.encoding>UTF-8</file.encoding>
+        <selenium.version>4.26.0</selenium.version>
+        <testng.version>7.7.0</testng.version>
+        <logback.version>1.2.11</logback.version>
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
         <cucumber.version>7.15.0</cucumber.version>
         <allure.version>2.29.0</allure.version>
-        <aspectj.version>1.9.9.1</aspectj.version>
+        <aspectj.version>1.9.19</aspectj.version>
         <test.resource.dir>src/test/resources</test.resource.dir>
         <suiteXmlFile>AllTest</suiteXmlFile>
         <main.resource.dir>${project.basedir}/src/main/resources</main.resource.dir>
@@ -23,15 +26,33 @@
         <surefire.rerunFailingTestsCount>2</surefire.rerunFailingTestsCount>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Селениум и все связанные зависимости управляются здесь -->
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
+            </dependency>
+            <!-- Другие зависимости, если потребуется -->
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-        <!-- Selenide для взаимодействия с браузером -->
+        <!-- Selenium WebDriver -->
         <dependency>
-            <groupId>com.codeborne</groupId>
-            <artifactId>selenide</artifactId>
-            <version>${selenide.version}</version>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
         </dependency>
 
-        <!-- TestNG для структуры тестирования -->
+        <!-- WebDriverManager для автоматического управления драйверами -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- TestNG для тестирования -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -45,11 +66,11 @@
             <version>${logback.version}</version>
         </dependency>
 
-        <!-- WebDriverManager для управления драйверами -->
+        <!-- SLF4J для логирования -->
         <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdrivermanager.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
         </dependency>
 
         <!-- Cucumber для BDD тестирования -->
@@ -69,32 +90,52 @@
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- Allure для Cucumber -->
+        <!-- Allure для отчётности -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-cucumber7-jvm</artifactId> <!-- Замените на актуальную версию -->
+            <artifactId>allure-cucumber7-jvm</artifactId>
             <version>${allure.version}</version>
         </dependency>
-
-        <!-- Allure для TestNG -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.17.0</version>
+        </dependency>
 
-        <!-- JSON handling for AI response processing -->
+        <!-- Зависимости для работы с API -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20240303</version>
+            <version>20230618</version>
         </dependency>
 
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
+        <!-- AspectJ для аспектно-ориентированного программирования -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -102,18 +143,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.0.0-M9</version>
                 <configuration>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.lang.reflect=ALL-UNNAMED
                     </argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>${test.resource.dir}/${suiteXmlFile}.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <systemProperties>
+                    <systemPropertyVariables>
                         <client.resource.dir>${client.resource.dir}</client.resource.dir>
                         <allurereportfolder>${allurereportfolder}</allurereportfolder>
-                    </systemProperties>
+                    </systemPropertyVariables>
                     <includes>
                         <include>**/*TestRunner*.java</include>
                     </includes>
@@ -133,38 +176,42 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.1.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
-                    <filesets>
-                        <!-- Cleans the allure-results directory -->
-                        <fileset>
-                            <directory>${project.basedir}/allure-results</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                        </fileset>
-                        <!-- Cleans the build/downloads directory -->
-                        <fileset>
-                            <directory>${project.basedir}/build/downloads</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                        </fileset>
-                        <!-- Cleans the build/reports/tests directory -->
-                        <fileset>
-                            <directory>${project.basedir}/build/reports/tests</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                        </fileset>
-                        <!-- Cleans the cucumber-reports/html directory -->
-                        <fileset>
-                            <directory>${project.basedir}/cucumber-reports/html</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                        </fileset>
-                    </filesets>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.15.0</version>
+                <configuration>
+                    <complianceLevel>${java.version}</complianceLevel>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <aspectLibraries>
+                        <aspectLibrary>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjweaver</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                    <showWeaveInfo>true</showWeaveInfo>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

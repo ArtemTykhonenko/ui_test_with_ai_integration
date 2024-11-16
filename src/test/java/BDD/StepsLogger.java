@@ -1,6 +1,5 @@
 package BDD;
 
-import com.codeborne.selenide.Selenide;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import org.slf4j.Logger;
@@ -12,34 +11,25 @@ public class StepsLogger implements ConcurrentEventListener {
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-        publisher.registerHandlerFor(TestStepStarted.class, this::stepStartedHandler);
-        publisher.registerHandlerFor(TestStepFinished.class, this::stepFinishedHandler);
+        publisher.registerHandlerFor(TestStepStarted.class, this::logStepStart);
+        publisher.registerHandlerFor(TestStepFinished.class, this::logStepFinish);
     }
 
-    private void stepStartedHandler(TestStepStarted event) {
+    private void logStepStart(TestStepStarted event) {
         if (event.getTestStep() instanceof PickleStepTestStep) {
             PickleStepTestStep step = (PickleStepTestStep) event.getTestStep();
-            String keyWord = step.getStep().getKeyword().toUpperCase();
-            String stepText = step.getStep().getText();
-            logger.info(formatString(keyWord, stepText));
+            logger.info("STEP STARTED: {}", step.getStep().getText());
         }
     }
 
-    private void stepFinishedHandler(TestStepFinished event) {
+    private void logStepFinish(TestStepFinished event) {
         if (event.getTestStep() instanceof PickleStepTestStep) {
-            String testCaseId = event.getTestCase().getName().split(",")[0];
-            if (Status.FAILED.equals(event.getResult().getStatus())) {
-                try {
-                    Selenide.screenshot(testCaseId);
-                    logger.error("Test case {} failed, screenshot saved.", testCaseId);
-                } catch (Exception e) {
-                    logger.error("Error while taking screenshot for test case {}: {}", testCaseId, e.getMessage());
-                }
+            PickleStepTestStep step = (PickleStepTestStep) event.getTestStep();
+            if (event.getResult().getStatus().is(Status.FAILED)) {
+                logger.error("STEP FAILED: {}", step.getStep().getText());
+            } else {
+                logger.info("STEP PASSED: {}", step.getStep().getText());
             }
         }
-    }
-
-    private String formatString(String keyWord, String stepText) {
-        return String.format("%s: %s", keyWord, stepText);
     }
 }

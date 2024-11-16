@@ -1,24 +1,43 @@
 package automation.base;
 
-import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.safari.SafariDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DriverManager {
 
-    private static WebDriver driver;
+    private static Logger logger = LoggerFactory.getLogger(DriverManager.class);
+    private static DriverManager instance;
+    private WebDriver driver;
 
-    public static WebDriver getDriver(String browser) {
+    private DriverManager() {
+        // Private constructor to prevent instantiation
+    }
+
+    public static DriverManager getInstance() {
+        if (instance == null) {
+            synchronized (DriverManager.class) {
+                if (instance == null) {
+                    instance = new DriverManager();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public WebDriver getDriver(String browser) {
         if (driver == null) {
             setupDriver(browser);
         }
         return driver;
     }
 
-    private static void setupDriver(String browser) {
+    private void setupDriver(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
@@ -32,19 +51,21 @@ public class DriverManager {
                 WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
                 break;
+            case "safari":
+                driver = new SafariDriver();
+                break;
             default:
                 throw new IllegalArgumentException("Do not support this browser: " + browser);
         }
 
-        // Налаштування Selenide
-        Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 10000;
-        Configuration.reportsFolder = "target/screenshots";
+        // Logging browser setup
+        logger.info("Browser {} has been set up successfully", browser);
     }
 
-    public static void quitDriver() {
+    public void quitDriver() {
         if (driver != null) {
             driver.quit();
+            logger.info("Browser session has been terminated.");
             driver = null;
         }
     }

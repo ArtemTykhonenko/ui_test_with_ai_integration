@@ -1,0 +1,8 @@
+<aspectj>
+    <aspects>
+        <aspect name="automation.api.LocatorAspect"/>
+    </aspects>
+    <weaver>
+        <include within="automation.utils.PageTools"/>
+    </weaver>
+</aspectj>
