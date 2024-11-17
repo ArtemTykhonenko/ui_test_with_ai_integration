@@ -12,7 +12,7 @@ import automation.base.DriverManager;
 
 /**
  * Aspect for handling Selenium locator issues using ChatGPT.
- * This aspect intercepts method calls within the {@code PageTools} class
+ * This aspect intercepts method calls annotated with {@code @LocatorAutoFixer}
  * and attempts to automatically fix broken locators using ChatGPT if a {@code TimeoutException} or other exceptions occur.
  */
 @Aspect
@@ -21,14 +21,14 @@ public class LocatorAspect {
     private final ChatGPTClient chatGPTClient = new ChatGPTClient();
 
     /**
-     * Intercepts method calls to {@code PageTools} and handles locator exceptions.
+     * Intercepts method calls to {@code LocatorAutoFixer} tag and handles locator exceptions.
      * If a {@code TimeoutException} or other exception occurs, it attempts to auto-fix the locator using ChatGPT.
      *
      * @param joinPoint The join point representing the intercepted method call.
      * @return The result of the intercepted method if successful, or a retry with a corrected locator if an exception was handled.
      * @throws Throwable if the original exception cannot be resolved.
      */
-    @Around("execution(* automation.utils.PageTools.*(..))")
+    @Around("within(@automation.api.LocatorAutoFixer *)")
     public Object handleLocatorAutoFix(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info("Intercepted method call: {}", joinPoint.getSignature());
 

@@ -1,0 +1,1 @@
+{"uuid":"d4365c00-da4a-4e6c-9a0e-5bfce9b2ec16","children":["a8dd53d9-f87b-4d6c-bd70-64a02e9b2a0d"],"befores":[{"name":"BDD.Hooks.setUp()","status":"passed","statusDetails":{"known":false,"muted":false,"flaky":false},"stage":"finished","steps":[],"attachments":[],"parameters":[],"start":1731802493302,"stop":1731802494976}],"afters":[],"start":1731802493301,"stop":1731802494976}

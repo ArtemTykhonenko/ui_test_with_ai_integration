@@ -26,9 +26,9 @@ import java.time.Duration;
 @LocatorAutoFixer
 public class PageTools extends DefaultLogger {
 
-    private static final Logger logger = LoggerFactory.getLogger(PageTools.class);
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+    private Logger logger = LoggerFactory.getLogger(PageTools.class);
+    private WebDriver driver;
+    private WebDriverWait wait;
 
     /**
      * Initializes the {@code PageTools} with a WebDriver instance and sets a default wait time.

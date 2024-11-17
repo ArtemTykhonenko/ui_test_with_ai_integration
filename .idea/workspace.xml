@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8e2a7d94-3dfa-4b18-99d2-718ecdf77642" name="Changes" comment="added Report with fixed locators and logging">
+      <change beforePath="$PROJECT_DIR$/src/main/java/automation/api/LocatorAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/automation/api/LocatorAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/automation/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/automation/utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/automation/utils/PageTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/automation/utils/PageTools.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ArtemTykhonenko&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ArtemTykhonenko/ui_test_with_ai_integration.git&quot;,
+    &quot;accountId&quot;: &quot;067a5309-562d-4f49-b708-983e63b7f795&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2orF5zPe5xBDXRkOjs66F91Hr0b" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.ui_test_with_ai_integration [clean,test...].executor": "Run",
+    "Maven.ui_test_with_ai_integration [clean,test].executor": "Run",
+    "Maven.ui_test_with_ai_integration [clean...].executor": "Run",
+    "Maven.ui_test_with_ai_integration [clean].executor": "Run",
+    "Maven.ui_test_with_ai_integration [javadoc:javadoc].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Selenium+CgatGPT__v.1",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C01&quot;" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C01&quot; -Ddataproviderthreadcount=4 -Dselenide.browser=chrome " />
+      <command value="mvn clean test" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@test&quot; " />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C01&quot; -Ddataproviderthreadcount=4 -Dbrowser=chrome " />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C1&quot; -Ddataproviderthreadcount=4 -Dbrowser=chrome " />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C1&quot;" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Ddataproviderthreadcount=2 -Dbrowser=chrome" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dbrowser=firefox" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dbrowser=chrome" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C1&quot; -Ddataproviderthreadcount=1 -Dbrowser=chrome -Dheadless=false" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C2&quot; -Ddataproviderthreadcount=1 -Dbrowser=chrome -Dheadless=false" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Ddataproviderthreadcount=2 -Dbrowser=chrome -Dheadless=false" />
+      <command value="mvn clean test -Dtest=TestRunner -Dcucumber.filter.tags=@С1 -Ddataproviderthreadcount=1 -Dbrowser=chrome -Dheadless=false " />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C1&quot; -Ddataproviderthreadcount=1 -Dbrowser=chrome " />
+      <command value="mvn clean test -Dtest=TestRunner -Dcucumber.filter.tags=@C1 -Ddataproviderthreadcount=1 -Dbrowser=chrome -Dheadless=false " />
+      <command value="mvn clean test -Dtest=TestRunner -Dcucumber.filter.tags=@C2 -Ddataproviderthreadcount=1 -Dbrowser=chrome -Dheadless=false " />
+      <command value="mvn clean test -DsuiteXmlFile=src/test/resources/testng.xml -Dheadless=true " />
+      <command value="mvn clean test -Dtest=TestRunner -Dcucumber.filter.tags=@Smoke -Ddataproviderthreadcount=2 -Dbrowser=chrome -Dheadless=false " />
+      <command value="mvn clean test -Dtest=TestRunner -Dcucumber.filter.tags=@Smoke -Dbrowser=chrome -Dheadless=false -Dthreads=2" />
+      <command value="mvn clean test -Dtest=TestRunner -Dcucumber.filter.tags=@Smoke -Dbrowser=chrome -Dheadless=false -Dthreads=2 " />
+      <command value="mvn clean test -Dtest=TestRunner -Dcucumber.filter.tags=@Smoke" />
+      <command value="mvn clean install" />
+      <command value="mvn clean test -Dtest=TestRunner -Dcucumber.filter.tags=@Smoke -Dbrowser=chrome -Dheadless=false -Dthreads=1" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Ddataproviderthreadcount=1 -Dbrowser=chrome" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dbrowser=chrome " />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Ddataproviderthreadcount=2 -Dbrowser=chrome " />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dbrowser=firefox -Ddataproviderthreadcount=2" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dbrowser=firefox -Dthreadcount=2" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dbrowser=chrome -Dthreadcount=2" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dthreadcount=2 -Dbrowser=chrome -Dheadless=false" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dthreadcount=1 -Dbrowser=chrome -Dheadless=false" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Dbrowser=chrome -Dthreadcount=1" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Ddataproviderthreadcount=1" />
+      <command value="mvn clean test -DsuiteXmlFile=testng.xml " />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@Smoke&quot; -Ddataproviderthreadcount=2" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C2&quot; -Ddataproviderthreadcount=1 -Dholdbrowseropen=true" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C2&quot; -Ddataproviderthreadcount=1" />
+      <command value="mvn clean javadoc:javadoc" />
+      <command value="mvn javadoc:javadoc" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C1&quot; -Ddataproviderthreadcount=1 -Dorg.aspectj.weaver.showWeaveInfo=false" />
+      <command value="mvn clean test -Dtest=TestRunner &quot;-Dcucumber.filter.tags=@C1&quot; -Ddataproviderthreadcount=1" />
+      <command value="mvn clean" />
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8e2a7d94-3dfa-4b18-99d2-718ecdf77642" name="Changes" comment="" />
+      <created>1731619611351</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731619611351</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Selenide logic with API">
+      <option name="closed" value="true" />
+      <created>1731624583624</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1731624583625</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Selenide logic with API">
+      <option name="closed" value="true" />
+      <created>1731627520038</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731627520038</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Selenide logic with API">
+      <option name="closed" value="true" />
+      <created>1731630334005</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731630334005</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Selenide logic with API">
+      <option name="closed" value="true" />
+      <created>1731630964962</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731630964962</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Selenide logic with API WORKED">
+      <option name="closed" value="true" />
+      <created>1731766039000</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731766039000</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Selenide logic with API WORKED">
+      <option name="closed" value="true" />
+      <created>1731766762908</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731766762908</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Selenide logic with API WORKED">
+      <option name="closed" value="true" />
+      <created>1731767569808</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731767569808</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added Async">
+      <option name="closed" value="true" />
+      <created>1731769015326</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731769015326</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added Async">
+      <option name="closed" value="true" />
+      <created>1731769059786</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731769059786</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added">
+      <option name="closed" value="true" />
+      <created>1731783057052</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1731783057052</updated>
+    </task>
+    <task id="LOCAL-00011" summary="TRY2">
+      <option name="closed" value="true" />
+      <created>1731799028580</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1731799028580</updated>
+    </task>
+    <task id="LOCAL-00012" summary="TRY3">
+      <option name="closed" value="true" />
+      <created>1731802427464</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731802427464</updated>
+    </task>
+    <task id="LOCAL-00013" summary="TRY3">
+      <option name="closed" value="true" />
+      <created>1731855023877</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731855023877</updated>
+    </task>
+    <task id="LOCAL-00014" summary="v.1">
+      <option name="closed" value="true" />
+      <created>1731855073465</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1731855073465</updated>
+    </task>
+    <task id="LOCAL-00015" summary="v.1">
+      <option name="closed" value="true" />
+      <created>1731855171528</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1731855171528</updated>
+    </task>
+    <task id="LOCAL-00016" summary="added javadoc generation">
+      <option name="closed" value="true" />
+      <created>1731856315348</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1731856315348</updated>
+    </task>
+    <task id="LOCAL-00017" summary="added Report with fixed locators and logging">
+      <option name="closed" value="true" />
+      <created>1731861006023</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1731861006023</updated>
+    </task>
+    <task id="LOCAL-00018" summary="added Report with fixed locators and logging">
+      <option name="closed" value="true" />
+      <created>1731861817757</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1731861817757</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added Report with fixed locators and logging">
+      <option name="closed" value="true" />
+      <created>1731868101686</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1731868101686</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Selenide logic with API" />
+    <MESSAGE value="Selenide logic with API WORKED" />
+    <MESSAGE value="Added Async" />
+    <MESSAGE value="Added" />
+    <MESSAGE value="TRY2" />
+    <MESSAGE value="TRY3" />
+    <MESSAGE value="v.1" />
+    <MESSAGE value="added javadoc generation" />
+    <MESSAGE value="added Report with fixed locators and logging" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Report with fixed locators and logging" />
+  </component>
+</project>
