@@ -161,6 +161,10 @@
                         --add-opens java.base/java.lang=ALL-UNNAMED
                         --add-opens java.base/java.lang.reflect=ALL-UNNAMED
                     </argLine>
+                    <systemPropertyVariables>
+                        <cucumber.plugin>html:cucumber-reports/report.html,json:cucumber-reports/report.json</cucumber.plugin>
+                        <allure.results.directory>${project.basedir}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFile>${test.resource.dir}/${suiteXmlFile}.xml</suiteXmlFile>
                     </suiteXmlFiles>
@@ -222,6 +226,48 @@
                     <links>
                         <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
                     </links>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>5.7.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-cucumber-reports</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>${project.artifactId}</projectName>
+                            <!-- Считываем JSON из директории target/cucumber-reports -->
+                            <jsonFiles>
+                                <param>${project.build.directory}/cucumber-reports/report.json</param>
+                            </jsonFiles>
+                            <outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Plugin for cleaning -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.basedir}/target</directory>
+                            <directory>${project.basedir}/allure-results</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
                 </configuration>
             </plugin>
         </plugins>
