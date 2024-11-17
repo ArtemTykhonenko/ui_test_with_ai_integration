@@ -260,8 +260,20 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>${project.basedir}/target</directory>
+                            <directory>${project.build.directory}</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
                             <directory>${project.basedir}/allure-results</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
                             <directory>${project.basedir}/cucumber-reports</directory>
                             <includes>
                                 <include>**/*</include>
