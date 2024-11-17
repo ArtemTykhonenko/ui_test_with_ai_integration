@@ -13,7 +13,7 @@ import org.openqa.selenium.By;
 public class HomePage extends PageTools {
 
     // Locators for the elements on the homepage
-    private static By pageTitle = By.xpath("//span[@class='title' and contains(text(), 'Products')]");
+    private static By pageTitle = By.xpath("//span[@class='title' and contains(text(), 'Products')] +");
     private static By sideMenu = By.id("react-burger-menu-btn");
     private static By logoutLink = By.id("logout_sidebar_link");
     private static By allItemsLink = By.id("inventory_sidebar_link");
