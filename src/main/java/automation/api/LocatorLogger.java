@@ -14,8 +14,8 @@ import java.util.List;
 public class LocatorLogger extends DefaultLogger {
     private static final Logger logger = LoggerFactory.getLogger(LocatorLogger.class);
     private static final List<LocatorFixEntry> locatorFixEntries = new ArrayList<>();
-    private static int maxOldLocatorLength = 0;
-    private static int maxNewLocatorLength = 0;
+    private static int maxOldLocatorLength = 10; // Минимальная ширина колонки
+    private static int maxNewLocatorLength = 10; // Минимальная ширина колонки
 
     // ANSI escape codes for colors
     private static final String GREEN_BORDER = "\033[0;32m";
@@ -35,9 +35,9 @@ public class LocatorLogger extends DefaultLogger {
         LocatorFixEntry entry = new LocatorFixEntry(oldLocator, newLocator);
         locatorFixEntries.add(entry);
 
-        // Update max length for formatting
-        maxOldLocatorLength = Math.max(maxOldLocatorLength, oldLocator.length());
-        maxNewLocatorLength = Math.max(maxNewLocatorLength, newLocator.length());
+        // Update max length for formatting with a minimum width of 10
+        maxOldLocatorLength = Math.max(maxOldLocatorLength, oldLocator != null ? oldLocator.length() : 0);
+        maxNewLocatorLength = Math.max(maxNewLocatorLength, newLocator != null ? newLocator.length() : 0);
 
         // Log in-process fix with blue color
         logger.info(CYAN_TEXT + "Locator fixed: Old Locator='{}' | New Locator='{}'" + RESET_COLOR, oldLocator, newLocator);
@@ -47,6 +47,12 @@ public class LocatorLogger extends DefaultLogger {
      * Generates a report of all fixed locators with proper alignment and color coding.
      */
     public static void generateReport() {
+        // Check if there are any entries to report
+        if (locatorFixEntries.isEmpty()) {
+            logger.info(GREEN_BORDER + "No locators were fixed during the test run." + RESET_COLOR);
+            return;
+        }
+
         StringBuilder report = new StringBuilder();
 
         // Calculate total width for the columns and the space between them
@@ -76,10 +82,10 @@ public class LocatorLogger extends DefaultLogger {
         for (LocatorFixEntry entry : locatorFixEntries) {
             String formattedOldLocator = String.format(
                     BLUE_TEXT + "%-" + maxOldLocatorLength + "s" + RESET_COLOR,
-                    entry.oldLocator);
+                    entry.oldLocator != null ? entry.oldLocator : "N/A");
             String formattedNewLocator = String.format(
                     YELLOW_TEXT + "%-" + maxNewLocatorLength + "s" + RESET_COLOR,
-                    entry.newLocator);
+                    entry.newLocator != null ? entry.newLocator : "N/A");
 
             report.append(WHITE_TEXT).append(formattedOldLocator)
                     .append(" | ")
