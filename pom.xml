@@ -1,16 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
+    <!-- Project metadata -->
+    <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
     <artifactId>ui_test_with_ai_integration</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- Project properties -->
     <properties>
+        <!-- Java version and encoding settings -->
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <file.encoding>UTF-8</file.encoding>
+
+        <!-- Library versions -->
         <selenium.version>4.26.0</selenium.version>
         <testng.version>7.7.0</testng.version>
         <logback.version>1.2.11</logback.version>
@@ -18,6 +23,8 @@
         <cucumber.version>7.15.0</cucumber.version>
         <allure.version>2.29.0</allure.version>
         <aspectj.version>1.9.19</aspectj.version>
+
+        <!-- Paths and configurations -->
         <test.resource.dir>src/test/resources</test.resource.dir>
         <suiteXmlFile>AllTest</suiteXmlFile>
         <main.resource.dir>${project.basedir}/src/main/resources</main.resource.dir>
@@ -26,54 +33,55 @@
         <surefire.rerunFailingTestsCount>2</surefire.rerunFailingTestsCount>
     </properties>
 
+    <!-- Dependency Management Section -->
     <dependencyManagement>
         <dependencies>
-            <!-- Селениум и все связанные зависимости управляются здесь -->
+            <!-- Centralized management of Selenium and other dependencies -->
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
                 <version>${selenium.version}</version>
             </dependency>
-            <!-- Другие зависимости, если потребуется -->
         </dependencies>
     </dependencyManagement>
 
+    <!-- Project dependencies -->
     <dependencies>
-        <!-- Selenium WebDriver -->
+        <!-- Selenium WebDriver dependency -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
         </dependency>
 
-        <!-- WebDriverManager для автоматического управления драйверами -->
+        <!-- WebDriverManager for managing WebDriver binaries -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
         </dependency>
 
-        <!-- TestNG для тестирования -->
+        <!-- TestNG for running tests -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
         </dependency>
 
-        <!-- Logback для логирования -->
+        <!-- Logback for logging -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
 
-        <!-- SLF4J для логирования -->
+        <!-- SLF4J API for logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.36</version>
         </dependency>
 
-        <!-- Cucumber для BDD тестирования -->
+        <!-- Cucumber for BDD testing -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
@@ -90,7 +98,7 @@
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- Allure для отчётности -->
+        <!-- Allure for test reporting -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
@@ -101,31 +109,29 @@
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.17.0</version>
-        </dependency>
 
-        <!-- Зависимости для работы с API -->
+        <!-- OkHttp for making HTTP requests -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>4.9.2</version>
         </dependency>
+
+        <!-- Gson for JSON processing -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.11.0</version>
         </dependency>
 
+        <!-- org.json for JSON manipulation -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20230618</version>
         </dependency>
 
-        <!-- AspectJ для аспектно-ориентированного программирования -->
+        <!-- AspectJ for aspect-oriented programming -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -138,8 +144,10 @@
         </dependency>
     </dependencies>
 
+    <!-- Build configuration -->
     <build>
         <plugins>
+            <!-- Maven Surefire plugin for running tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -153,31 +161,17 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${test.resource.dir}/${suiteXmlFile}.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <systemPropertyVariables>
-                        <client.resource.dir>${client.resource.dir}</client.resource.dir>
-                        <allurereportfolder>${allurereportfolder}</allurereportfolder>
-                    </systemPropertyVariables>
-                    <includes>
-                        <include>**/*TestRunner*.java</include>
-                    </includes>
                 </configuration>
             </plugin>
 
+            <!-- Allure Maven plugin for generating reports -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
-                <configuration>
-                    <reportVersion>${allure.version}</reportVersion>
-                </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
-            </plugin>
-
+            <!-- Compiler plugin for Java source code -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -188,14 +182,13 @@
                 </configuration>
             </plugin>
 
+            <!-- AspectJ Maven plugin for weaving aspects -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
                 <version>1.15.0</version>
                 <configuration>
                     <complianceLevel>${java.version}</complianceLevel>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>org.aspectj</groupId>
