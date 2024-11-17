@@ -262,6 +262,7 @@
                         <fileset>
                             <directory>${project.basedir}/target</directory>
                             <directory>${project.basedir}/allure-results</directory>
+                            <directory>${project.basedir}/cucumber-reports</directory>
                             <includes>
                                 <include>**/*</include>
                             </includes>
