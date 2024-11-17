@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class StepsLogger implements ConcurrentEventListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(StepsLogger.class);
+    private static final Logger logger = LoggerFactory.getLogger("BDD.StepsLogger");
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
@@ -21,7 +21,7 @@ public class StepsLogger implements ConcurrentEventListener {
             PickleStepTestStep step = (PickleStepTestStep) event.getTestStep();
             String keyWord = step.getStep().getKeyword().toUpperCase();
             String stepText = step.getStep().getText();
-            logger.info(formatString(keyWord, stepText));
+            logger.info("{} {}", keyWord, stepText);
         }
     }
 
@@ -31,15 +31,13 @@ public class StepsLogger implements ConcurrentEventListener {
             if (Status.FAILED.equals(event.getResult().getStatus())) {
                 try {
                     Selenide.screenshot(testCaseId);
-                    logger.error("Test case {} failed, screenshot saved.", testCaseId);
+                    logger.error("❌ Test case '{}' failed, screenshot saved.", testCaseId);
                 } catch (Exception e) {
-                    logger.error("Error while taking screenshot for test case {}: {}", testCaseId, e.getMessage());
+                    logger.error("⚠️ Error while taking screenshot for test case '{}': {}", testCaseId, e.getMessage());
                 }
+            } else {
+                logger.info("✅ Test case '{}' passed.", testCaseId);
             }
         }
-    }
-
-    private String formatString(String keyWord, String stepText) {
-        return String.format("%s: %s", keyWord, stepText);
     }
 }

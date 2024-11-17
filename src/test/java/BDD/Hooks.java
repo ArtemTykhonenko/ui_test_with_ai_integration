@@ -1,35 +1,46 @@
 package BDD;
 
-import automation.utils.DefaultLogger;
 import com.codeborne.selenide.Configuration;
+import org.openqa.selenium.chrome.ChromeOptions;
 import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Hooks extends DefaultLogger {
+public class Hooks {
     private static final Logger logger = LoggerFactory.getLogger(Hooks.class);
 
-    @Before
-    public void setUp() {
-        // Устанавливаем браузер через системные свойства
-        Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
-        Configuration.timeout = 10000;
-        Configuration.pageLoadStrategy = "eager";
+    @Before(order = 0)
+    public void setUpBrowser() {
+        // Установка настроек для Chrome
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-infobars");
+        options.addArguments("--disable-popup-blocking");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-blink-features=AutomationControlled");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        options.setExperimentalOption("prefs", new java.util.HashMap<String, Object>() {{
+            put("profile.password_manager_enabled", false);
+            put("credentials_enable_service", false);
+            put("profile.default_content_setting_values.notifications", 2);
+        }});
 
-        logger.info("Initialized Selenide WebDriver with browser: {}", Configuration.browser);
+        // Применение настроек к Selenide
+        Configuration.browserCapabilities = options;
+        Configuration.browser = "chrome";
+        Configuration.browserSize = "1920x1080";
+
+        logger.info("Настроен Chrome WebDriver с отключением предупреждений о паролях");
     }
 
     @After
     public void tearDown() {
-        if (WebDriverRunner.hasWebDriverStarted()) {
+        if (!Boolean.parseBoolean(System.getProperty("holdbrowseropen", "false"))) {
             WebDriverRunner.closeWebDriver();
-            logger.info("Closed Selenide WebDriver");
+            logger.info("Закрыт браузер после теста");
         } else {
-            logger.warn("WebDriver was not started, nothing to close");
+            logger.info("Браузер оставлен открытым по запросу");
         }
     }
 }

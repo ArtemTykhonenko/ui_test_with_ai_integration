@@ -7,7 +7,7 @@ public class LoginPage extends PageTools {
 
     // Локаторы
     private static final By usernameField = By.id("user-name");
-    private static final By passwordField = By.id("password");
+    private static final By passwordField = By.id("password -");
     private static final By loginButton = By.id("login-button");
     private static final By loginBox = By.xpath("//div[@class='login-box']");
 

@@ -31,9 +31,6 @@ public class PageTools extends DefaultLogger {
         return $(LocatorParser.parseLocator(by, args));
     }
 
-    /**
-     * Нажимает на элемент.
-     */
     protected void clickElement(By by, Object... args) {
         logInfo("Clicking on element: " + by);
         getElement(by, args).shouldBe(Condition.visible).click();

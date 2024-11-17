@@ -1,11 +1,11 @@
 package automation.api;
 
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.ex.ElementNotFound;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,27 +22,36 @@ public class LocatorAspect {
         try {
             // Первоначальная попытка выполнения метода
             return joinPoint.proceed();
-        } catch (TimeoutException e) {
-            logger.warn("TimeoutException intercepted: {}", joinPoint.getSignature(), e);
-            return handleLocatorAutoFixLogic(joinPoint, e);
-        } catch (Exception e) {
-            logger.warn("Exception intercepted: {}", joinPoint.getSignature(), e);
-            return handleLocatorAutoFixLogic(joinPoint, e);
+        } catch (ElementNotFound e) {
+            logger.warn("ElementNotFound intercepted: {}", joinPoint.getSignature(), e);
+            return handleElementNotFound(joinPoint, e);
+        } catch (Throwable e) {
+            logger.warn("Throwable intercepted: {}", joinPoint.getSignature(), e);
+            throw e;
         }
     }
 
-    private Object handleLocatorAutoFixLogic(ProceedingJoinPoint joinPoint, Exception originalException) throws Throwable {
+    /**
+     * Обработка исключения ElementNotFound.
+     */
+    private Object handleElementNotFound(ProceedingJoinPoint joinPoint, ElementNotFound exception) throws Throwable {
+        logger.warn("Handling ElementNotFound...");
+        String locatorInfo = extractLocatorFromMessage(exception.getMessage());
+        return handleLocatorFix(joinPoint, locatorInfo, exception.getMessage());
+    }
+
+    private Object handleLocatorFix(ProceedingJoinPoint joinPoint, String originalLocator, String errorMessage) throws Throwable {
         Object[] args = joinPoint.getArgs();
 
         // Проверка, что первый аргумент является локатором
         if (args.length > 0 && args[0] instanceof By) {
-            By originalLocator = (By) args[0];
+            By locator = (By) args[0];
             String pageSource = getCurrentPageSource();
 
-            logger.info("Requesting locator fix for locator: {}", originalLocator);
+            logger.info("Requesting locator fix for locator: {}", locator);
 
             // Запрос на исправление локатора через ChatGPT
-            String correctedLocatorStr = requestLocatorFix(originalLocator.toString(), pageSource);
+            String correctedLocatorStr = requestLocatorFix(originalLocator != null ? originalLocator : locator.toString(), pageSource);
 
             if (correctedLocatorStr != null) {
                 logger.info("[FIX] Received corrected locator: {}", correctedLocatorStr);
@@ -57,40 +66,22 @@ public class LocatorAspect {
                         logger.info("Retrying method execution with corrected locator...");
                         return joinPoint.proceed(args);
                     } catch (Exception retryException) {
-                        logger.error("Retry with corrected locator failed. Original error: {}, Retry error: {}",
-                                originalException.getMessage(), retryException.getMessage());
+                        logger.error("Retry with corrected locator failed: {}", retryException.getMessage());
                         throw retryException;
                     }
-                } else {
-                    logger.error("Failed to parse corrected locator: {}", correctedLocatorStr);
                 }
-            } else {
-                logger.error("No corrected locator received from ChatGPT for: {}", originalLocator);
             }
         }
 
         // Если исправить не удалось, выбрасываем оригинальное исключение
-        throw originalException;
+        throw new RuntimeException(errorMessage);
     }
 
-    /**
-     * Получение страницы из текущего драйвера с использованием Selenide.
-     */
     private String getCurrentPageSource() {
         WebDriver driver = WebDriverRunner.getWebDriver();
-        if (driver != null) {
-            try {
-                return driver.getPageSource();
-            } catch (Exception e) {
-                logger.error("Error while retrieving page source", e);
-            }
-        }
-        return "";
+        return driver != null ? driver.getPageSource() : "";
     }
 
-    /**
-     * Запрос на исправление локатора через ChatGPT.
-     */
     private String requestLocatorFix(String locator, String pageSource) {
         try {
             logger.info("Sending request to ChatGPT for locator fix...");
@@ -101,9 +92,6 @@ public class LocatorAspect {
         }
     }
 
-    /**
-     * Парсинг исправленного локатора.
-     */
     private By parseLocator(String locatorStr) {
         try {
             if (locatorStr.startsWith("By.id")) {
@@ -119,10 +107,21 @@ public class LocatorAspect {
         return null;
     }
 
-    /**
-     * Извлечение значения из строки локатора.
-     */
     private String extractLocatorValue(String locatorStr) {
         return locatorStr.substring(locatorStr.indexOf("\"") + 1, locatorStr.lastIndexOf("\""));
+    }
+
+    /**
+     * Извлечение информации о локаторе из сообщения об ошибке.
+     */
+    private String extractLocatorFromMessage(String message) {
+        if (message != null && message.contains("Unable to locate element")) {
+            int startIndex = message.indexOf("{") + 1;
+            int endIndex = message.indexOf("}");
+            if (startIndex > 0 && endIndex > startIndex) {
+                return message.substring(startIndex, endIndex);
+            }
+        }
+        return null;
     }
 }
