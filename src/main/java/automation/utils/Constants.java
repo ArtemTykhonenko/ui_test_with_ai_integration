@@ -61,5 +61,5 @@ public class Constants {
      * API key for accessing the ChatGPT API.
      * <p><strong>Note:</strong> Be cautious when storing sensitive data such as API keys in your code.</p>
      */
-    public static final String ChatGPTAPI = "sk-proj-XXXXX - your API key";
+    public static final String ChatGPTAPI = "YOUR KEY";
 }
