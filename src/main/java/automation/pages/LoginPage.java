@@ -13,10 +13,10 @@ import org.openqa.selenium.By;
 public class LoginPage extends PageTools {
 
     // Locators for the elements on the login page
-    private static By usernameField = By.id("user-name");
-    private static By passwordField = By.id("password -");
-    private static By loginButton = By.id("login-button");
-    private static By loginBox = By.xpath("//div[@class='login-box']");
+    private static By usernameField = By.id("user-name-");
+    private static By passwordField = By.id("password-");
+    private static By loginButton = By.id("login-button-");
+    private static By loginBox = By.xpath("//div[@class='login-box'-]");
 
     /**
      * Types the given username into the username input field.

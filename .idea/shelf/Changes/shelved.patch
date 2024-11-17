@@ -1,0 +1,17 @@
+Index: src/main/java/automation/utils/Constants.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package automation.utils;\r\n\r\n/**\r\n * The {@code Constants} class stores commonly used constants such as URLs,\r\n * user credentials, and API keys for the application.\r\n *\r\n * <p>This class is designed to centralize constants used throughout the automation framework,\r\n * making it easier to maintain and update values in a single place.</p>\r\n */\r\npublic class Constants {\r\n\r\n    /**\r\n     * URL of the Swag Labs login page.\r\n     */\r\n    public static final String SWAG_LABS_LOGIN_PAGE = \"https://www.saucedemo.com/\";\r\n\r\n    // ====================\r\n    // User Credentials\r\n    // ====================\r\n\r\n    /**\r\n     * Username for a standard user account.\r\n     */\r\n    public static final String STANDARD_USER = \"standard_user\";\r\n\r\n    /**\r\n     * Username for a locked-out user account.\r\n     */\r\n    public static final String LOCKED_USER = \"locked_out_user\";\r\n\r\n    /**\r\n     * Username for a problem user account.\r\n     */\r\n    public static final String PROBLEM_USER = \"problem_user\";\r\n\r\n    /**\r\n     * Username for a performance glitch user account.\r\n     */\r\n    public static final String PERFORMANCE_USER = \"performance_glitch_user\";\r\n\r\n    /**\r\n     * Username for a user that triggers errors.\r\n     */\r\n    public static final String ERROR_USER = \"error_user\";\r\n\r\n    /**\r\n     * Username for a visual bug testing user account.\r\n     */\r\n    public static final String VISUAL_USER = \"visual_user\";\r\n\r\n    /**\r\n     * Password for all user accounts.\r\n     */\r\n    public static final String PASSWORD = \"secret_sauce\";\r\n\r\n    // ====================\r\n    // API Keys\r\n    // ====================\r\n\r\n    /**\r\n     * API key for accessing the ChatGPT API.\r\n     * <p><strong>Note:</strong> Be cautious when storing sensitive data such as API keys in your code.</p>\r\n     */\r\n    public static final String ChatGPTAPI = \"YOUR KEY\";\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/automation/utils/Constants.java b/src/main/java/automation/utils/Constants.java
+--- a/src/main/java/automation/utils/Constants.java	(revision 8a3bdd5ed76e8bab60477fb12d125a7a56f0b154)
++++ b/src/main/java/automation/utils/Constants.java	(date 1731855399621)
+@@ -61,5 +61,5 @@
+      * API key for accessing the ChatGPT API.
+      * <p><strong>Note:</strong> Be cautious when storing sensitive data such as API keys in your code.</p>
+      */
+-    public static final String ChatGPTAPI = "YOUR KEY";
++    public static final String ChatGPTAPI = "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";
+ }
