@@ -68,6 +68,7 @@ public class LocatorAspect {
                 By newLocator = parseLocator(correctedLocator);
 
                 if (newLocator != null) {
+                    LocatorLogger.logLocatorFix(locator.toString(), correctedLocator);
                     logger.info("Parsed corrected locator: {}", newLocator);
                     args[0] = newLocator;
 

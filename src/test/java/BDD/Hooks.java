@@ -60,5 +60,6 @@ public class Hooks extends DefaultLogger {
         // Quit the WebDriver and release resources
         DriverManager.quitDriver();
         logger.info("WebDriver closed");
+        automation.api.LocatorLogger.generateReport();
     }
 }
