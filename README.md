@@ -107,7 +107,7 @@ The following dependencies are included:
 ---
 
 ## 📁 Project Structure
-
+```
 src  
 ├── main  
 │   ├── java  
@@ -124,7 +124,7 @@ src
 │   └── resources  
 │       └── features           # Cucumber feature files  
 └── pom.xml                    # Maven project configuration
-
+```
 ---
 
 ## 📄 Feature Examples
