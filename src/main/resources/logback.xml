@@ -1,21 +1,36 @@
 <configuration>
-    <!-- Console Appender -->
+    <!-- ====================
+         Console Appender
+         ====================
+         This appender logs messages to the console.
+         It is useful for viewing logs in real-time during test execution.
+    -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
+            <!-- The log pattern includes the date, log level, logger name, and the message -->
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- File Appender для INFO логов -->
+    <!-- ====================
+         File Appender for INFO logs
+         ====================
+         This appender writes INFO-level logs to a file.
+         The logs are rolled daily, and old logs are kept for a maximum of 7 days.
+    -->
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- File where INFO logs will be saved -->
         <file>target/logs/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Log files are rolled daily, and files are named with the date -->
             <fileNamePattern>target/logs/info-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- Maximum number of days to retain old log files -->
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
+        <!-- Filter to only include logs at INFO level -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
@@ -23,16 +38,25 @@
         </filter>
     </appender>
 
-    <!-- File Appender для ERROR логов -->
+    <!-- ====================
+         File Appender for ERROR logs
+         ====================
+         This appender writes ERROR-level logs to a separate file.
+         The logs are rolled daily, and old logs are kept for a maximum of 7 days.
+    -->
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- File where ERROR logs will be saved -->
         <file>target/logs/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Log files are rolled daily, and files are named with the date -->
             <fileNamePattern>target/logs/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- Maximum number of days to retain old log files -->
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
+        <!-- Filter to only include logs at ERROR level -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
@@ -40,18 +64,34 @@
         </filter>
     </appender>
 
-    <!-- Логгер для вашего проекта -->
+    <!-- ====================
+         Logger for BDD Steps
+         ====================
+         This logger is used for logging the steps in your BDD scenarios.
+         Logs at INFO level are sent to both the console and the INFO log file.
+    -->
     <logger name="BDD.StepsLogger" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="INFO_FILE"/>
     </logger>
 
+    <!-- ====================
+         Logger for LocatorAspect
+         ====================
+         This logger is used specifically for logging errors in the LocatorAspect class.
+         Logs at ERROR level are sent to both the console and the ERROR log file.
+    -->
     <logger name="automation.api.LocatorAspect" level="ERROR" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ERROR_FILE"/>
     </logger>
 
-    <!-- Логирование сторонних библиотек на уровне WARN -->
+    <!-- ====================
+         Logging for Third-Party Libraries
+         ====================
+         These loggers reduce the verbosity of logs from external libraries by setting them to WARN level.
+         This helps keep your logs cleaner by only showing important warnings.
+    -->
     <logger name="org.asynchttpclient" level="WARN"/>
     <logger name="com.codeborne.selenide" level="WARN"/>
     <logger name="org.openqa.selenium" level="WARN"/>
@@ -59,7 +99,12 @@
     <logger name="org.aspectj" level="WARN"/>
     <logger name="org.apache.http" level="WARN"/>
 
-    <!-- Корневой логгер для всего проекта -->
+    <!-- ====================
+         Root Logger
+         ====================
+         The root logger handles all other logging that isn't explicitly defined above.
+         It logs at WARN level and sends the output to the console.
+    -->
     <root level="WARN">
         <appender-ref ref="CONSOLE"/>
     </root>

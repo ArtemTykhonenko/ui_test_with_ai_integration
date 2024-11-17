@@ -1,8 +1,11 @@
+<!-- AspectJ configuration for applying aspects to the project -->
 <aspectj>
     <aspects>
+        <!-- Register the LocatorAspect class to handle automatic locator correction -->
         <aspect name="automation.api.LocatorAspect"/>
     </aspects>
     <weaver>
+        <!-- Apply weaving to the PageTools class to intercept method calls for locator auto-fixing -->
         <include within="automation.utils.PageTools"/>
     </weaver>
 </aspectj>
