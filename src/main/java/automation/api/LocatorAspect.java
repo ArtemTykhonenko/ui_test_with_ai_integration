@@ -10,24 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import automation.base.DriverManager;
 
-/**
- * Aspect for handling Selenium locator issues using ChatGPT.
- * This aspect intercepts method calls annotated with {@code @LocatorAutoFixer}
- * and attempts to automatically fix broken locators using ChatGPT if a {@code TimeoutException} or other exceptions occur.
- */
 @Aspect
 public class LocatorAspect {
     private static final Logger logger = LoggerFactory.getLogger(LocatorAspect.class);
     private final ChatGPTClient chatGPTClient = new ChatGPTClient();
 
-    /**
-     * Intercepts method calls to {@code LocatorAutoFixer} tag and handles locator exceptions.
-     * If a {@code TimeoutException} or other exception occurs, it attempts to auto-fix the locator using ChatGPT.
-     *
-     * @param joinPoint The join point representing the intercepted method call.
-     * @return The result of the intercepted method if successful, or a retry with a corrected locator if an exception was handled.
-     * @throws Throwable if the original exception cannot be resolved.
-     */
     @Around("within(@automation.api.LocatorAutoFixer *)")
     public Object handleLocatorAutoFix(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info("Intercepted method call: {}", joinPoint.getSignature());
@@ -43,16 +30,6 @@ public class LocatorAspect {
         }
     }
 
-    /**
-     * Handles the logic for automatically fixing the locator using ChatGPT.
-     * This method retrieves the page source, sends a request to ChatGPT for fixing the locator,
-     * and attempts to retry the method call with the corrected locator.
-     *
-     * @param joinPoint The join point representing the intercepted method call.
-     * @param originalException The original exception that occurred.
-     * @return The result of the method if the retry is successful.
-     * @throws Throwable if the locator cannot be fixed and the original exception needs to be rethrown.
-     */
     private Object handleLocatorAutoFixLogic(ProceedingJoinPoint joinPoint, Exception originalException) throws Throwable {
         Object[] args = joinPoint.getArgs();
 
@@ -91,23 +68,11 @@ public class LocatorAspect {
         throw originalException;
     }
 
-    /**
-     * Retrieves the current page source from the active WebDriver instance.
-     *
-     * @return The page source as a string, or an empty string if the driver is not available.
-     */
     private String getCurrentPageSource() {
         WebDriver driver = DriverManager.getDriver(null);
         return driver != null ? driver.getPageSource() : "";
     }
 
-    /**
-     * Sends a request to ChatGPT for fixing the given locator based on the page source.
-     *
-     * @param locator The original Selenium locator that needs fixing.
-     * @param pageSource The HTML page source where the locator is used.
-     * @return The corrected locator string from ChatGPT, or null if the request fails.
-     */
     private String requestLocatorFix(String locator, String pageSource) {
         try {
             logger.info("Sending request to ChatGPT for locator fix...");
@@ -118,12 +83,6 @@ public class LocatorAspect {
         }
     }
 
-    /**
-     * Parses the corrected locator string received from ChatGPT into a Selenium {@code By} object.
-     *
-     * @param locatorStr The corrected locator string in the format "By.id()", "By.cssSelector()", or "By.xpath()".
-     * @return The parsed {@code By} object, or null if parsing fails.
-     */
     private By parseLocator(String locatorStr) {
         try {
             if (locatorStr.startsWith("By.id")) {
@@ -139,12 +98,6 @@ public class LocatorAspect {
         return null;
     }
 
-    /**
-     * Extracts the value from the locator string.
-     *
-     * @param locatorStr The locator string in the format "By.id("value")", "By.cssSelector("value")", or "By.xpath("value")".
-     * @return The extracted locator value.
-     */
     private String extractLocatorValue(String locatorStr) {
         return locatorStr.substring(locatorStr.indexOf("\"") + 1, locatorStr.lastIndexOf("\""));
     }

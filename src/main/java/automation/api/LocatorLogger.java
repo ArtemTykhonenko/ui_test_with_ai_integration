@@ -7,10 +7,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Utility class for logging locator fixes.
- * Logs old and new locators, and generates a report at the end.
- */
 public class LocatorLogger extends DefaultLogger {
     private static final Logger logger = LoggerFactory.getLogger(LocatorLogger.class);
     private static final List<LocatorFixEntry> locatorFixEntries = new ArrayList<>();
@@ -25,12 +21,6 @@ public class LocatorLogger extends DefaultLogger {
     private static final String CYAN_TEXT = "\033[0;36m";
     private static final String RESET_COLOR = "\033[0m";
 
-    /**
-     * Logs the old and new locators after a fix.
-     *
-     * @param oldLocator The original locator that was not working.
-     * @param newLocator The corrected locator returned by AI.
-     */
     public static void logLocatorFix(String oldLocator, String newLocator) {
         LocatorFixEntry entry = new LocatorFixEntry(oldLocator, newLocator);
         locatorFixEntries.add(entry);
@@ -43,9 +33,6 @@ public class LocatorLogger extends DefaultLogger {
         logger.info(CYAN_TEXT + "Locator fixed: Old Locator='{}' | New Locator='{}'" + RESET_COLOR, oldLocator, newLocator);
     }
 
-    /**
-     * Generates a report of all fixed locators with proper alignment and color coding.
-     */
     public static void generateReport() {
         // Check if there are any entries to report
         if (locatorFixEntries.isEmpty()) {
@@ -100,9 +87,6 @@ public class LocatorLogger extends DefaultLogger {
         logger.info(report.toString());
     }
 
-    /**
-     * Inner class to store locator fix entries.
-     */
     private static class LocatorFixEntry {
         String oldLocator;
         String newLocator;

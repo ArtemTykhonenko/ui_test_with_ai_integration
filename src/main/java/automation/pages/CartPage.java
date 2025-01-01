@@ -3,13 +3,7 @@ package automation.pages;
 import automation.utils.PageTools;
 import org.openqa.selenium.By;
 
-/**
- * The {@code CartPage} class represents the shopping cart page of the application.
- * It provides methods to interact with elements on the cart page, such as viewing items,
- * retrieving item details, and navigating through the checkout process.
- *
- * <p>This class extends {@code PageTools} to utilize common Selenium utilities.</p>
- */
+
 public class CartPage extends PageTools {
 
     // Locators for the main cart page
@@ -34,44 +28,21 @@ public class CartPage extends PageTools {
     private static By priceTotalLabel = By.xpath("//div[@class='summary_info_label' and contains(text(), 'Price Total')]");
     private static By priceWithTaxesLabel = By.xpath("//div[@class='summary_total_label']");
 
-    /**
-     * Checks if the cart page title is displayed.
-     *
-     * @return {@code true} if the cart page title is visible, otherwise {@code false}.
-     */
     public boolean isCartPageTitleDisplayed() {
         waitForElementVisibility(cartPageTitle);
         return isElementVisible(cartPageTitle);
     }
 
-    /**
-     * Retrieves the name of an item in the cart by its position.
-     *
-     * @param number The position of the item in the cart (1-based index).
-     * @return The name of the item in the cart.
-     */
     public String getItemNameInCartByNumber(int number) {
         waitForElementVisibility(itemNameByNumber, number);
         return getElementText(itemNameByNumber, number);
     }
 
-    /**
-     * Retrieves the description of an item in the cart by its position.
-     *
-     * @param number The position of the item in the cart (1-based index).
-     * @return The description of the item in the cart.
-     */
     public String getItemDescriptionInCartByNumber(int number) {
         waitForElementVisibility(itemDescriptionByNumber, number);
         return getElementText(itemDescriptionByNumber, number);
     }
 
-    /**
-     * Retrieves the price of an item in the cart by its position.
-     *
-     * @param number The position of the item in the cart (1-based index).
-     * @return The price of the item in the cart.
-     */
     public String getItemPrice(int number) {
         waitForElementVisibility(itemPriceByNumber, number);
         return getElementText(itemPriceByNumber, number);
