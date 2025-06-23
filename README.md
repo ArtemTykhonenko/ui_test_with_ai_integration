@@ -33,11 +33,11 @@ git clone https://github.com/ArtemTykhonenko/ui_test_with_ai_integration.git
 ```
 
 2. Install the project dependencies using Maven:
-
+```bash
 mvn clean install
-
+```
 3. Download any necessary drivers using WebDriverManager.
-
+4. Insert your API key to the following variable "public static final String ChatGPTAPI". (could be found in "Constants" class)
 ---
 
 ## 🚀 Usage
