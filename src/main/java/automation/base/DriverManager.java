@@ -2,6 +2,7 @@ package automation.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -57,6 +58,8 @@ public class DriverManager {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 webDriver = new ChromeDriver();
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--incognito");
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
